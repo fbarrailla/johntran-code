@@ -8,10 +8,15 @@ import { t } from "./i18n/translations";
 function LanguagePicker() {
   const { lang, setLang } = useLang();
   return (
-    <div className="flex items-center gap-1 rounded-full border border-zinc-700 p-0.5 text-xs font-semibold">
+    <div
+      aria-label="Language"
+      className="flex items-center gap-1 rounded-full border border-zinc-700 p-0.5 text-xs font-semibold"
+    >
       <button
+        type="button"
+        aria-pressed={lang === "en"}
         onClick={() => setLang("en")}
-        className={`px-3 py-1 rounded-full transition ${
+        className={`px-3 py-2 rounded-full transition-colors duration-200 min-w-[40px] ${
           lang === "en"
             ? "bg-amber-500 text-zinc-950"
             : "text-zinc-400 hover:text-zinc-100"
@@ -20,8 +25,10 @@ function LanguagePicker() {
         EN
       </button>
       <button
+        type="button"
+        aria-pressed={lang === "vn"}
         onClick={() => setLang("vn")}
-        className={`px-3 py-1 rounded-full transition ${
+        className={`px-3 py-2 rounded-full transition-colors duration-200 min-w-[40px] ${
           lang === "vn"
             ? "bg-amber-500 text-zinc-950"
             : "text-zinc-400 hover:text-zinc-100"
@@ -40,8 +47,11 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans">
       {/* ── Nav ── */}
-      <header className="sticky top-0 z-20 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
-        <div className="mx-auto max-w-5xl px-6 flex items-center justify-between h-14">
+      <header className="sticky top-0 z-20 bg-zinc-950/80 backdrop-blur-sm border-b border-zinc-800">
+        <nav
+          aria-label="Main navigation"
+          className="mx-auto max-w-5xl px-6 flex items-center justify-between h-14"
+        >
           <span className="font-bold tracking-tight text-zinc-100">
             {tr.nav.brand}{" "}
             <span className="text-amber-500">{tr.nav.brandAccent}</span>
@@ -50,33 +60,30 @@ export default function Home() {
             <LanguagePicker />
             <a
               href="#apply"
-              className="rounded-full bg-amber-500 px-4 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-amber-400 transition"
+              className="rounded-full bg-amber-500 px-4 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-amber-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
             >
               {tr.nav.apply}
             </a>
           </div>
-        </div>
+        </nav>
       </header>
 
       <main>
         {/* ── Hero ── */}
         <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-          {/* Background image */}
           <div className="absolute inset-0">
             <Image
               src="/john_bw.jpg"
-              alt="John Tran"
+              alt="John Tran — lifestyle coach"
               fill
-              className="object-cover object-top"
+              className="object-cover object-[center_15%]"
               priority
             />
-            {/* Dark gradient overlay — stronger on left for text, fades to transparent right */}
-            <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/80 to-zinc-950/20" />
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/75 to-zinc-950/10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950/30" />
           </div>
 
-          {/* Content */}
-          <div className="relative z-10 mx-auto max-w-5xl px-6 py-24 w-full">
+          <div className="relative z-10 mx-auto max-w-5xl px-6 py-16 sm:py-24 w-full">
             <div className="max-w-xl">
               <p className="inline-block mb-5 rounded-full border border-amber-500/40 bg-amber-500/10 px-4 py-1 text-sm font-medium text-amber-400">
                 {tr.hero.tag}
@@ -91,7 +98,7 @@ export default function Home() {
               </p>
               <a
                 href="#apply"
-                className="inline-block rounded-full bg-amber-500 px-8 py-4 text-base font-semibold text-zinc-950 shadow-lg shadow-amber-500/20 hover:bg-amber-400 transition"
+                className="inline-block rounded-full bg-amber-500 px-8 py-4 text-base font-semibold text-zinc-950 shadow-lg shadow-amber-500/20 hover:bg-amber-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
               >
                 {tr.hero.cta}
               </a>
@@ -108,7 +115,8 @@ export default function Home() {
                 src="/john-tran.jpg"
                 alt="John Tran, lifestyle coach"
                 fill
-                className="object-cover object-center"
+                loading="lazy"
+                className="object-cover object-top"
               />
             </div>
             <div>
@@ -123,7 +131,8 @@ export default function Home() {
               <ul className="space-y-2 text-sm text-zinc-300">
                 {tr.about.certs.map((cert) => (
                   <li key={cert} className="flex items-center gap-2">
-                    <span className="text-amber-500">✓</span> {cert}
+                    <span className="text-amber-500" aria-hidden="true">✓</span>
+                    {cert}
                   </li>
                 ))}
               </ul>
@@ -142,37 +151,35 @@ export default function Home() {
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {tr.programs.items.map((s) => (
-              <div
-                key={s.title}
-                className={`rounded-2xl p-8 border transition ${"highlight" in s && s.highlight
-                  ? "bg-amber-500 text-zinc-950 border-amber-500 shadow-xl shadow-amber-500/20"
-                  : "bg-zinc-900 border-zinc-800 hover:border-zinc-700"
-                }`}
-              >
-                <div className="text-3xl mb-4">{s.icon}</div>
-                <p
-                  className={`text-xs font-semibold uppercase tracking-widest mb-1 ${"highlight" in s && s.highlight ? "text-zinc-800" : "text-amber-500"}`}
+            {tr.programs.items.map((s) => {
+              const highlighted = "highlight" in s && s.highlight;
+              return (
+                <div
+                  key={s.title}
+                  className={`rounded-2xl p-8 border transition-colors duration-200 ${
+                    highlighted
+                      ? "bg-amber-500 border-amber-500 shadow-xl shadow-amber-500/20"
+                      : "bg-zinc-900 border-zinc-800 hover:border-zinc-600"
+                  }`}
                 >
-                  {s.duration}
-                </p>
-                <h3
-                  className={`text-xl font-bold mb-3 ${"highlight" in s && s.highlight ? "text-zinc-950" : "text-zinc-100"}`}
-                >
-                  {s.title}
-                </h3>
-                <p
-                  className={`text-sm leading-relaxed ${"highlight" in s && s.highlight ? "text-zinc-800" : "text-zinc-400"}`}
-                >
-                  {s.description}
-                </p>
-                {"highlight" in s && s.highlight && (
-                  <span className="inline-block mt-4 rounded-full bg-zinc-950/20 px-3 py-1 text-xs font-medium text-zinc-900">
-                    {tr.programs.mostPopular}
-                  </span>
-                )}
-              </div>
-            ))}
+                  <div className="text-3xl mb-4" aria-hidden="true">{s.icon}</div>
+                  <p className={`text-xs font-semibold uppercase tracking-widest mb-1 ${highlighted ? "text-zinc-800" : "text-amber-500"}`}>
+                    {s.duration}
+                  </p>
+                  <h3 className={`text-xl font-bold mb-3 ${highlighted ? "text-zinc-950" : "text-zinc-100"}`}>
+                    {s.title}
+                  </h3>
+                  <p className={`text-sm leading-relaxed ${highlighted ? "text-zinc-800" : "text-zinc-400"}`}>
+                    {s.description}
+                  </p>
+                  {highlighted && (
+                    <span className="inline-block mt-4 rounded-full bg-zinc-950/20 px-3 py-1 text-xs font-medium text-zinc-900">
+                      {tr.programs.mostPopular}
+                    </span>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </section>
 
@@ -184,25 +191,27 @@ export default function Home() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {tr.testimonials.items.map((item) => (
-                <div
+                <figure
                   key={item.name}
                   className="rounded-2xl bg-zinc-950 p-8 border border-zinc-800"
                 >
-                  <p className="text-zinc-400 italic mb-6 leading-relaxed">
-                    &ldquo;{item.quote}&rdquo;
-                  </p>
-                  <div>
+                  <blockquote>
+                    <p className="text-zinc-400 italic mb-6 leading-relaxed">
+                      &ldquo;{item.quote}&rdquo;
+                    </p>
+                  </blockquote>
+                  <figcaption>
                     <p className="font-semibold text-zinc-100">{item.name}</p>
                     <p className="text-sm text-zinc-500">{item.role}</p>
-                  </div>
-                </div>
+                  </figcaption>
+                </figure>
               ))}
             </div>
           </div>
         </section>
 
         {/* ── Application form ── */}
-        <section id="apply" className="mx-auto max-w-2xl px-6 py-24">
+        <section id="apply" className="mx-auto max-w-2xl px-6 py-24 scroll-mt-16">
           <div className="text-center mb-10">
             <p className="text-sm font-semibold uppercase tracking-widest text-amber-500 mb-2">
               {tr.apply.eyebrow}

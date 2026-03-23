@@ -39,7 +39,7 @@ export default function SubscribeForm() {
   }
 
   const inputClass =
-    "w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2.5 text-zinc-100 placeholder-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition";
+    "w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2.5 text-zinc-100 placeholder-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 transition-colors duration-200";
 
   if (state === "success") {
     return (
@@ -69,6 +69,7 @@ export default function SubscribeForm() {
             id="firstName"
             name="firstName"
             type="text"
+            autoComplete="given-name"
             required
             value={form.firstName}
             onChange={handleChange}
@@ -84,6 +85,7 @@ export default function SubscribeForm() {
             id="lastName"
             name="lastName"
             type="text"
+            autoComplete="family-name"
             required
             value={form.lastName}
             onChange={handleChange}
@@ -103,6 +105,7 @@ export default function SubscribeForm() {
             id="email"
             name="email"
             type="email"
+            autoComplete="email"
             required
             value={form.email}
             onChange={handleChange}
@@ -118,6 +121,7 @@ export default function SubscribeForm() {
             id="phone"
             name="phone"
             type="tel"
+            autoComplete="tel"
             value={form.phone}
             onChange={handleChange}
             placeholder="+1 555 000 0000"
@@ -201,7 +205,7 @@ export default function SubscribeForm() {
       <button
         type="submit"
         disabled={state === "submitting"}
-        className="w-full rounded-lg bg-amber-500 px-6 py-3.5 text-base font-semibold text-zinc-950 shadow-sm hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-zinc-900 disabled:opacity-60 transition"
+        className="w-full rounded-lg bg-amber-500 px-6 py-3.5 text-base font-semibold text-zinc-950 shadow-sm hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 disabled:opacity-60 transition-colors duration-200"
       >
         {state === "submitting" ? tr.submitting : tr.submit}
       </button>
