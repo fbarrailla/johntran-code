@@ -4,7 +4,7 @@ export const t = {
   en: {
     nav: {
       brand: "John Tran",
-      brandAccent: "Coaching",
+      brandAccent: "Code",
       apply: "Apply now",
     },
     hero: {
@@ -121,7 +121,7 @@ export const t = {
   vn: {
     nav: {
       brand: "John Tran",
-      brandAccent: "Coaching",
+      brandAccent: "Code",
       apply: "Đăng ký ngay",
     },
     hero: {
