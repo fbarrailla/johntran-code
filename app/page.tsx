@@ -1,98 +1,107 @@
+"use client";
+
 import Image from "next/image";
 import SubscribeForm from "./components/SubscribeForm";
+import { useLang } from "./context/LanguageContext";
+import { t } from "./i18n/translations";
 
-const services = [
-  {
-    icon: "🧠",
-    title: "Mindset Reset",
-    duration: "4 weeks",
-    description:
-      "Break limiting beliefs, rewire thought patterns, and build the mental foundation every lasting change starts from.",
-  },
-  {
-    icon: "⚡",
-    title: "Body & Energy",
-    duration: "8 weeks",
-    description:
-      "A holistic approach to nutrition, movement, and recovery designed around your real life — no extreme diets, no 5 AM torture.",
-  },
-  {
-    icon: "🌿",
-    title: "Full Lifestyle Transformation",
-    duration: "12 weeks",
-    description:
-      "The complete program: mindset, body, habits, relationships, and purpose — guided 1-on-1 by John every step of the way.",
-    highlight: true,
-  },
-];
-
-const testimonials = [
-  {
-    quote:
-      "Three months with John completely changed how I show up — at work, at home, and in the mirror.",
-    name: "Sarah M.",
-    role: "Entrepreneur",
-  },
-  {
-    quote:
-      "I'd tried everything before. John was the first coach who actually listened and built a plan around my life.",
-    name: "Marcus T.",
-    role: "Father of two & remote engineer",
-  },
-  {
-    quote:
-      "Within 6 weeks I had more energy, less anxiety, and a morning routine I actually stick to.",
-    name: "Léa B.",
-    role: "Creative director",
-  },
-];
+function LanguagePicker() {
+  const { lang, setLang } = useLang();
+  return (
+    <div className="flex items-center gap-1 rounded-full border border-zinc-700 p-0.5 text-xs font-semibold">
+      <button
+        onClick={() => setLang("en")}
+        className={`px-3 py-1 rounded-full transition ${
+          lang === "en"
+            ? "bg-amber-500 text-zinc-950"
+            : "text-zinc-400 hover:text-zinc-100"
+        }`}
+      >
+        EN
+      </button>
+      <button
+        onClick={() => setLang("vn")}
+        className={`px-3 py-1 rounded-full transition ${
+          lang === "vn"
+            ? "bg-amber-500 text-zinc-950"
+            : "text-zinc-400 hover:text-zinc-100"
+        }`}
+      >
+        VN
+      </button>
+    </div>
+  );
+}
 
 export default function Home() {
+  const { lang } = useLang();
+  const tr = t[lang];
+
   return (
-    <div className="min-h-screen bg-stone-50 text-stone-900 font-sans">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans">
       {/* ── Nav ── */}
-      <header className="sticky top-0 z-20 bg-stone-50/80 backdrop-blur border-b border-stone-200">
+      <header className="sticky top-0 z-20 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
         <div className="mx-auto max-w-5xl px-6 flex items-center justify-between h-14">
-          <span className="font-bold tracking-tight text-stone-900">
-            John Tran <span className="text-amber-600">Code</span>
+          <span className="font-bold tracking-tight text-zinc-100">
+            {tr.nav.brand}{" "}
+            <span className="text-amber-500">{tr.nav.brandAccent}</span>
           </span>
-          <a
-            href="#apply"
-            className="rounded-full bg-amber-600 px-4 py-1.5 text-sm font-semibold text-white hover:bg-amber-700 transition"
-          >
-            Apply now
-          </a>
+          <div className="flex items-center gap-3">
+            <LanguagePicker />
+            <a
+              href="#apply"
+              className="rounded-full bg-amber-500 px-4 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-amber-400 transition"
+            >
+              {tr.nav.apply}
+            </a>
+          </div>
         </div>
       </header>
 
       <main>
         {/* ── Hero ── */}
-        <section className="mx-auto max-w-5xl px-6 pt-20 pb-24 text-center">
-          <p className="inline-block mb-4 rounded-full bg-amber-100 px-4 py-1 text-sm font-medium text-amber-700">
-            Lifestyle · Mindset · Performance
-          </p>
-          <h1 className="text-4xl sm:text-6xl font-extrabold leading-tight tracking-tight text-stone-900 mb-6">
-            Design the life <br className="hidden sm:block" />
-            you actually want.
-          </h1>
-          <p className="max-w-xl mx-auto text-lg text-stone-600 mb-10">
-            John Tran is a certified lifestyle coach helping driven people
-            build sustainable habits, unshakeable confidence, and a life that
-            feels as good as it looks.
-          </p>
-          <a
-            href="#apply"
-            className="inline-block rounded-full bg-amber-600 px-8 py-4 text-base font-semibold text-white shadow-lg hover:bg-amber-700 transition"
-          >
-            Start your free discovery call
-          </a>
-          <p className="mt-4 text-sm text-stone-400">
-            100% free · No strings attached
-          </p>
+        <section className="relative min-h-[92vh] flex items-center overflow-hidden">
+          {/* Background image */}
+          <div className="absolute inset-0">
+            <Image
+              src="/john_bw.jpg"
+              alt="John Tran"
+              fill
+              className="object-cover object-top"
+              priority
+            />
+            {/* Dark gradient overlay — stronger on left for text, fades to transparent right */}
+            <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/80 to-zinc-950/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950/40" />
+          </div>
+
+          {/* Content */}
+          <div className="relative z-10 mx-auto max-w-5xl px-6 py-24 w-full">
+            <div className="max-w-xl">
+              <p className="inline-block mb-5 rounded-full border border-amber-500/40 bg-amber-500/10 px-4 py-1 text-sm font-medium text-amber-400">
+                {tr.hero.tag}
+              </p>
+              <h1 className="text-5xl sm:text-7xl font-extrabold leading-[1.05] tracking-tight text-white mb-6">
+                {tr.hero.heading1}
+                <br />
+                <span className="text-amber-400">{tr.hero.heading2}</span>
+              </h1>
+              <p className="text-lg text-zinc-300 mb-10 leading-relaxed max-w-md">
+                {tr.hero.sub}
+              </p>
+              <a
+                href="#apply"
+                className="inline-block rounded-full bg-amber-500 px-8 py-4 text-base font-semibold text-zinc-950 shadow-lg shadow-amber-500/20 hover:bg-amber-400 transition"
+              >
+                {tr.hero.cta}
+              </a>
+              <p className="mt-4 text-sm text-zinc-500">{tr.hero.note}</p>
+            </div>
+          </div>
         </section>
 
         {/* ── About ── */}
-        <section className="bg-white border-y border-stone-200">
+        <section className="bg-zinc-900 border-y border-zinc-800">
           <div className="mx-auto max-w-5xl px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="rounded-2xl overflow-hidden relative" style={{ aspectRatio: "3/4" }}>
               <Image
@@ -100,34 +109,19 @@ export default function Home() {
                 alt="John Tran, lifestyle coach"
                 fill
                 className="object-cover object-center"
-                priority
               />
             </div>
             <div>
-              <p className="text-sm font-semibold uppercase tracking-widest text-amber-600 mb-3">
-                About John
+              <p className="text-sm font-semibold uppercase tracking-widest text-amber-500 mb-3">
+                {tr.about.eyebrow}
               </p>
-              <h2 className="text-3xl font-bold text-stone-900 mb-4">
-                Coaching from lived experience, not a textbook.
+              <h2 className="text-3xl font-bold text-zinc-100 mb-4">
+                {tr.about.heading}
               </h2>
-              <p className="text-stone-600 mb-4 leading-relaxed">
-                After burning out at 28, losing 20 kg, and rebuilding his life
-                from the ground up, John became obsessed with one question:{" "}
-                <em>what actually makes change stick?</em>
-              </p>
-              <p className="text-stone-600 mb-6 leading-relaxed">
-                Over the past 6 years he&apos;s worked with 200+ clients across four
-                continents — from stressed-out founders to new parents to
-                elite athletes in transition. His approach blends
-                neuroscience-backed habit design, somatic awareness, and
-                radical honesty.
-              </p>
-              <ul className="space-y-2 text-sm text-stone-700">
-                {[
-                  "Certified Life & Performance Coach (ICF)",
-                  "Precision Nutrition Level 2",
-                  "Mindfulness-Based Stress Reduction (MBSR)",
-                ].map((cert) => (
+              <p className="text-zinc-400 mb-4 leading-relaxed">{tr.about.p1}</p>
+              <p className="text-zinc-400 mb-6 leading-relaxed">{tr.about.p2}</p>
+              <ul className="space-y-2 text-sm text-zinc-300">
+                {tr.about.certs.map((cert) => (
                   <li key={cert} className="flex items-center gap-2">
                     <span className="text-amber-500">✓</span> {cert}
                   </li>
@@ -140,48 +134,41 @@ export default function Home() {
         {/* ── Programs ── */}
         <section className="mx-auto max-w-5xl px-6 py-20">
           <div className="text-center mb-12">
-            <p className="text-sm font-semibold uppercase tracking-widest text-amber-600 mb-2">
-              Programs
+            <p className="text-sm font-semibold uppercase tracking-widest text-amber-500 mb-2">
+              {tr.programs.eyebrow}
             </p>
-            <h2 className="text-3xl font-bold text-stone-900">
-              Choose your path
+            <h2 className="text-3xl font-bold text-zinc-100">
+              {tr.programs.heading}
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {services.map((s) => (
+            {tr.programs.items.map((s) => (
               <div
                 key={s.title}
-                className={`rounded-2xl p-8 border transition ${
-                  s.highlight
-                    ? "bg-amber-600 text-white border-amber-600 shadow-xl"
-                    : "bg-white border-stone-200 hover:shadow-md"
+                className={`rounded-2xl p-8 border transition ${"highlight" in s && s.highlight
+                  ? "bg-amber-500 text-zinc-950 border-amber-500 shadow-xl shadow-amber-500/20"
+                  : "bg-zinc-900 border-zinc-800 hover:border-zinc-700"
                 }`}
               >
                 <div className="text-3xl mb-4">{s.icon}</div>
                 <p
-                  className={`text-xs font-semibold uppercase tracking-widest mb-1 ${
-                    s.highlight ? "text-amber-200" : "text-amber-600"
-                  }`}
+                  className={`text-xs font-semibold uppercase tracking-widest mb-1 ${"highlight" in s && s.highlight ? "text-zinc-800" : "text-amber-500"}`}
                 >
                   {s.duration}
                 </p>
                 <h3
-                  className={`text-xl font-bold mb-3 ${
-                    s.highlight ? "text-white" : "text-stone-900"
-                  }`}
+                  className={`text-xl font-bold mb-3 ${"highlight" in s && s.highlight ? "text-zinc-950" : "text-zinc-100"}`}
                 >
                   {s.title}
                 </h3>
                 <p
-                  className={`text-sm leading-relaxed ${
-                    s.highlight ? "text-amber-100" : "text-stone-600"
-                  }`}
+                  className={`text-sm leading-relaxed ${"highlight" in s && s.highlight ? "text-zinc-800" : "text-zinc-400"}`}
                 >
                   {s.description}
                 </p>
-                {s.highlight && (
-                  <span className="inline-block mt-4 rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white">
-                    Most popular
+                {"highlight" in s && s.highlight && (
+                  <span className="inline-block mt-4 rounded-full bg-zinc-950/20 px-3 py-1 text-xs font-medium text-zinc-900">
+                    {tr.programs.mostPopular}
                   </span>
                 )}
               </div>
@@ -190,23 +177,23 @@ export default function Home() {
         </section>
 
         {/* ── Testimonials ── */}
-        <section className="bg-stone-900">
+        <section className="bg-zinc-900 border-y border-zinc-800">
           <div className="mx-auto max-w-5xl px-6 py-20">
-            <p className="text-center text-sm font-semibold uppercase tracking-widest text-amber-400 mb-12">
-              Client stories
+            <p className="text-center text-sm font-semibold uppercase tracking-widest text-amber-500 mb-12">
+              {tr.testimonials.eyebrow}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {testimonials.map((t) => (
+              {tr.testimonials.items.map((item) => (
                 <div
-                  key={t.name}
-                  className="rounded-2xl bg-stone-800 p-8 border border-stone-700"
+                  key={item.name}
+                  className="rounded-2xl bg-zinc-950 p-8 border border-zinc-800"
                 >
-                  <p className="text-stone-300 italic mb-6 leading-relaxed">
-                    &ldquo;{t.quote}&rdquo;
+                  <p className="text-zinc-400 italic mb-6 leading-relaxed">
+                    &ldquo;{item.quote}&rdquo;
                   </p>
                   <div>
-                    <p className="font-semibold text-white">{t.name}</p>
-                    <p className="text-sm text-stone-500">{t.role}</p>
+                    <p className="font-semibold text-zinc-100">{item.name}</p>
+                    <p className="text-sm text-zinc-500">{item.role}</p>
                   </div>
                 </div>
               ))}
@@ -217,29 +204,27 @@ export default function Home() {
         {/* ── Application form ── */}
         <section id="apply" className="mx-auto max-w-2xl px-6 py-24">
           <div className="text-center mb-10">
-            <p className="text-sm font-semibold uppercase tracking-widest text-amber-600 mb-2">
-              Apply
+            <p className="text-sm font-semibold uppercase tracking-widest text-amber-500 mb-2">
+              {tr.apply.eyebrow}
             </p>
-            <h2 className="text-3xl font-bold text-stone-900 mb-3">
-              Ready to start?
+            <h2 className="text-3xl font-bold text-zinc-100 mb-3">
+              {tr.apply.heading}
             </h2>
-            <p className="text-stone-600">
-              Fill in the form below. John personally reviews every application
-              and will reach out within 48 hours to schedule a free 30-minute
-              discovery call.
-            </p>
+            <p className="text-zinc-400">{tr.apply.sub}</p>
           </div>
-          <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-8 sm:p-10">
+          <div className="bg-zinc-900 rounded-2xl border border-zinc-800 shadow-xl p-8 sm:p-10">
             <SubscribeForm />
           </div>
         </section>
       </main>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-stone-200 bg-white">
-        <div className="mx-auto max-w-5xl px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-stone-400">
-          <span>© {new Date().getFullYear()} John Tran Coaching. All rights reserved.</span>
-          <span>Made with intention.</span>
+      <footer className="border-t border-zinc-800 bg-zinc-900">
+        <div className="mx-auto max-w-5xl px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
+          <span>
+            © {new Date().getFullYear()} John Tran Coaching. {tr.footer.rights}
+          </span>
+          <span>{tr.footer.made}</span>
         </div>
       </footer>
     </div>
