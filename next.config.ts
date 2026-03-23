@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  basePath: '/johntran-code',
+  basePath: '/nextjs-github-pages',
   images: {
     unoptimized: true,
   },
