@@ -106,6 +106,7 @@ export const t = {
       note: "No commitment. No spam. John reads every application personally.",
       successTitle: "You're in!",
       successMsg: "Thanks {name} — John will reach out within 48 hours to schedule your free discovery call.",
+      errorMsg: "Something went wrong. Please try again or email directly at johntran@tontonfrancky.com.",
       programs: [
         { id: "mindset", label: "Mindset Reset (4 weeks)" },
         { id: "body", label: "Body & Energy (8 weeks)" },
@@ -225,6 +226,7 @@ export const t = {
       note: "Không ràng buộc. Không spam. John đọc từng đơn đăng ký.",
       successTitle: "Đã nhận!",
       successMsg: "Cảm ơn {name} — John sẽ liên hệ trong vòng 48 giờ để sắp xếp cuộc gọi khám phá miễn phí của bạn.",
+      errorMsg: "Có lỗi xảy ra. Vui lòng thử lại hoặc gửi email trực tiếp tới johntran@tontonfrancky.com.",
       programs: [
         { id: "mindset", label: "Tái thiết Tư duy (4 tuần)" },
         { id: "body", label: "Cơ thể & Năng lượng (8 tuần)" },

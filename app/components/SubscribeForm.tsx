@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import { useLang } from "../context/LanguageContext";
 import { t } from "../i18n/translations";
 
@@ -32,10 +33,31 @@ export default function SubscribeForm() {
     }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setState("submitting");
-    setTimeout(() => setState("success"), 1200);
+
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          first_name: form.firstName,
+          last_name: form.lastName,
+          full_name: `${form.firstName} ${form.lastName}`,
+          email: form.email,
+          phone: form.phone || "—",
+          program: form.program,
+          experience: form.experience || "—",
+          goal: form.goal,
+          to_email: "johntran@tontonfrancky.com",
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
+      setState("success");
+    } catch {
+      setState("error");
+    }
   }
 
   const inputClass =
@@ -59,6 +81,12 @@ export default function SubscribeForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {state === "error" && (
+        <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+          {tr.errorMsg}
+        </div>
+      )}
+
       {/* Name */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
