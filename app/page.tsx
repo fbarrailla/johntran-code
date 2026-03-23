@@ -52,15 +52,15 @@ export default function Home() {
           aria-label="Main navigation"
           className="mx-auto max-w-5xl px-6 flex items-center justify-between h-14"
         >
-          <span className="font-bold tracking-tight text-zinc-100">
+          <span className="font-bold tracking-tight text-zinc-100 whitespace-nowrap min-w-0 truncate">
             {tr.nav.brand}{" "}
             <span className="text-amber-500">{tr.nav.brandAccent}</span>
           </span>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0 ml-4">
             <LanguagePicker />
             <a
               href="#apply"
-              className="rounded-full bg-amber-500 px-4 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-amber-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+              className="rounded-full bg-amber-500 px-4 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-amber-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 whitespace-nowrap"
             >
               {tr.nav.apply}
             </a>
