@@ -233,7 +233,17 @@ export default function Home() {
           <span>
             © {new Date().getFullYear()} John Tran Coaching. {tr.footer.rights}
           </span>
-          <span>{tr.footer.made}</span>
+          <span>
+            {tr.footer.made}{" "}
+            <a
+              href={tr.footer.madeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-400 hover:text-amber-500 transition-colors duration-200"
+            >
+              {tr.footer.madeAuthor}
+            </a>
+          </span>
         </div>
       </footer>
     </div>

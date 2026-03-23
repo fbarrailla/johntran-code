@@ -114,7 +114,9 @@ export const t = {
     },
     footer: {
       rights: "All rights reserved.",
-      made: "Made with intention.",
+      made: "Made with ❤️ by",
+      madeAuthor: "Francky",
+      madeUrl: "https://tontonfrancky.com",
     },
   },
 
@@ -231,7 +233,9 @@ export const t = {
     },
     footer: {
       rights: "Bảo lưu mọi quyền.",
-      made: "Được tạo ra với tâm huyết.",
+      made: "Được tạo với ❤️ bởi",
+      madeAuthor: "Francky",
+      madeUrl: "https://tontonfrancky.com",
     },
   },
 };
