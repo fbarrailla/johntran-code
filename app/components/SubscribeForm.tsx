@@ -45,6 +45,7 @@ export default function SubscribeForm() {
           first_name: form.firstName,
           last_name: form.lastName,
           full_name: `${form.firstName} ${form.lastName}`,
+          time: new Date().toLocaleDateString(),
           email: form.email,
           phone: form.phone || "—",
           program: form.program,
