@@ -17,9 +17,34 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://johntran-code.com"),
   title: "John Tran Coaching — Design the life you actually want",
   description:
     "John Tran is a certified lifestyle coach helping driven people build sustainable habits, unshakeable confidence, and a life that feels as good as it looks.",
+  openGraph: {
+    title: "John Tran Coaching — Design the life you actually want",
+    description:
+      "John Tran is a certified lifestyle coach helping driven people build sustainable habits, unshakeable confidence, and a life that feels as good as it looks.",
+    url: "https://johntran-code.com",
+    siteName: "John Tran Coaching",
+    images: [
+      {
+        url: "/john_bw.jpg",
+        width: 1440,
+        height: 1920,
+        alt: "John Tran — Lifestyle Coach",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "John Tran Coaching — Design the life you actually want",
+    description:
+      "John Tran is a certified lifestyle coach helping driven people build sustainable habits, unshakeable confidence, and a life that feels as good as it looks.",
+    images: ["/john_bw.jpg"],
+  },
 };
 
 export default function RootLayout({
