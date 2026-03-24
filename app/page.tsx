@@ -94,7 +94,7 @@ function SocialLinks({ className = "" }: { className?: string }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={s.label}
-          className="text-zinc-500 hover:text-amber-500 transition-colors duration-200"
+          className="text-zinc-500 hover:text-blue-500 transition-colors duration-200"
         >
           {s.icon}
         </a>
@@ -116,7 +116,7 @@ function LanguagePicker() {
         onClick={() => setLang("en")}
         className={`px-3 py-2 rounded-full transition-colors duration-200 min-w-[40px] ${
           lang === "en"
-            ? "bg-amber-500 text-zinc-950"
+            ? "bg-blue-500 text-zinc-950"
             : "text-zinc-400 hover:text-zinc-100"
         }`}
       >
@@ -128,7 +128,7 @@ function LanguagePicker() {
         onClick={() => setLang("vn")}
         className={`px-3 py-2 rounded-full transition-colors duration-200 min-w-[40px] ${
           lang === "vn"
-            ? "bg-amber-500 text-zinc-950"
+            ? "bg-blue-500 text-zinc-950"
             : "text-zinc-400 hover:text-zinc-100"
         }`}
       >
@@ -177,7 +177,7 @@ export default function Home() {
         >
           <span className="font-bold tracking-tight text-zinc-100 whitespace-nowrap min-w-0 truncate">
             {tr.nav.brand}{" "}
-            <span className="text-amber-500">{tr.nav.brandAccent}</span>
+            <span className="text-blue-500">{tr.nav.brandAccent}</span>
           </span>
 
           {/* Desktop right side */}
@@ -186,7 +186,7 @@ export default function Home() {
             <LanguagePicker />
             <a
               href="#apply"
-              className="rounded-full bg-amber-500 px-4 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-amber-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 whitespace-nowrap"
+              className="rounded-full bg-blue-500 px-4 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-blue-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 whitespace-nowrap"
             >
               {tr.nav.apply}
             </a>
@@ -215,7 +215,7 @@ export default function Home() {
               <a
                 href="#apply"
                 onClick={() => setMenuOpen(false)}
-                className="rounded-full bg-amber-500 px-5 py-2 text-sm font-semibold text-zinc-950 hover:bg-amber-400 transition-colors duration-200"
+                className="rounded-full bg-blue-500 px-5 py-2 text-sm font-semibold text-zinc-950 hover:bg-blue-400 transition-colors duration-200"
               >
                 {tr.nav.apply}
               </a>
@@ -247,20 +247,20 @@ export default function Home() {
 
           <div className="relative z-10 mx-auto max-w-5xl px-6 py-16 sm:py-24 w-full">
             <div className="max-w-xl">
-              <p className="inline-block mb-5 rounded-full border border-amber-500/40 bg-amber-500/10 px-4 py-1 text-sm font-medium text-amber-400">
+              <p className="inline-block mb-5 rounded-full border border-blue-500/40 bg-blue-500/10 px-4 py-1 text-sm font-medium text-blue-400">
                 {tr.hero.tag}
               </p>
               <h1 className="text-5xl sm:text-7xl font-extrabold leading-[1.05] tracking-tight text-white mb-6">
                 {tr.hero.heading1}
                 <br />
-                <span className="text-amber-400">{tr.hero.heading2}</span>
+                <span className="text-blue-400">{tr.hero.heading2}</span>
               </h1>
               <p className="text-lg text-zinc-300 mb-10 leading-relaxed max-w-md">
                 {tr.hero.sub}
               </p>
               <a
                 href="#apply"
-                className="inline-block rounded-full bg-amber-500 px-8 py-4 text-base font-semibold text-zinc-950 shadow-lg shadow-amber-500/20 hover:bg-amber-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+                className="inline-block rounded-full bg-blue-500 px-8 py-4 text-base font-semibold text-zinc-950 shadow-lg shadow-blue-500/20 hover:bg-blue-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
               >
                 {tr.hero.cta}
               </a>
@@ -274,7 +274,7 @@ export default function Home() {
           <div className="mx-auto max-w-5xl px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {tr.stats.map((stat) => (
               <div key={stat.label}>
-                <p className="text-3xl font-extrabold text-amber-400 tracking-tight"><CountUp value={stat.value} /></p>
+                <p className="text-3xl font-extrabold text-blue-400 tracking-tight"><CountUp value={stat.value} /></p>
                 <p className="mt-1 text-sm text-zinc-400">{stat.label}</p>
               </div>
             ))}
@@ -294,7 +294,7 @@ export default function Home() {
               />
             </div>
             <div>
-              <p className="text-sm font-semibold uppercase tracking-widest text-amber-500 mb-3">
+              <p className="text-sm font-semibold uppercase tracking-widest text-blue-500 mb-3">
                 {tr.about.eyebrow}
               </p>
               <h2 className="text-3xl font-bold text-zinc-100 mb-4">
@@ -305,7 +305,7 @@ export default function Home() {
               <ul className="space-y-2 text-sm text-zinc-300">
                 {tr.about.certs.map((cert) => (
                   <li key={cert} className="flex items-center gap-2">
-                    <span className="text-amber-500" aria-hidden="true">✓</span>
+                    <span className="text-blue-500" aria-hidden="true">✓</span>
                     {cert}
                   </li>
                 ))}
@@ -317,7 +317,7 @@ export default function Home() {
         {/* ── Programs ── */}
         <section className="mx-auto max-w-5xl px-6 py-20">
           <div className="text-center mb-12">
-            <p className="text-sm font-semibold uppercase tracking-widest text-amber-500 mb-2">
+            <p className="text-sm font-semibold uppercase tracking-widest text-blue-500 mb-2">
               {tr.programs.eyebrow}
             </p>
             <h2 className="text-3xl font-bold text-zinc-100">
@@ -332,12 +332,12 @@ export default function Home() {
                   key={s.title}
                   className={`rounded-2xl p-8 border transition-colors duration-200 ${
                     highlighted
-                      ? "bg-amber-500 border-amber-500 shadow-xl shadow-amber-500/20"
+                      ? "bg-blue-500 border-blue-500 shadow-xl shadow-blue-500/20"
                       : "bg-zinc-900 border-zinc-800 hover:border-zinc-600"
                   }`}
                 >
                   <div className="text-3xl mb-4" aria-hidden="true">{s.icon}</div>
-                  <p className={`text-xs font-semibold uppercase tracking-widest mb-1 ${highlighted ? "text-zinc-800" : "text-amber-500"}`}>
+                  <p className={`text-xs font-semibold uppercase tracking-widest mb-1 ${highlighted ? "text-zinc-800" : "text-blue-500"}`}>
                     {s.duration}
                   </p>
                   <h3 className={`text-xl font-bold mb-3 ${highlighted ? "text-zinc-950" : "text-zinc-100"}`}>
@@ -360,7 +360,7 @@ export default function Home() {
         {/* ── Testimonials ── */}
         <section className="bg-zinc-900 border-y border-zinc-800">
           <div className="mx-auto max-w-5xl px-6 py-20">
-            <p className="text-center text-sm font-semibold uppercase tracking-widest text-amber-500 mb-12">
+            <p className="text-center text-sm font-semibold uppercase tracking-widest text-blue-500 mb-12">
               {tr.testimonials.eyebrow}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -387,7 +387,7 @@ export default function Home() {
         {/* ── Application form ── */}
         <section id="apply" className="mx-auto max-w-2xl px-6 py-24 scroll-mt-16">
           <div className="text-center mb-10">
-            <p className="text-sm font-semibold uppercase tracking-widest text-amber-500 mb-2">
+            <p className="text-sm font-semibold uppercase tracking-widest text-blue-500 mb-2">
               {tr.apply.eyebrow}
             </p>
             <h2 className="text-3xl font-bold text-zinc-100 mb-3">
@@ -414,7 +414,7 @@ export default function Home() {
               href={tr.footer.madeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-amber-500 transition-colors duration-200"
+              className="text-zinc-400 hover:text-blue-500 transition-colors duration-200"
             >
               {tr.footer.madeAuthor}
             </a>
