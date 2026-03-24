@@ -19,17 +19,24 @@ export default function SubscribeForm() {
     program: "",
     goal: "",
     experience: "",
+    commitment: "",
+    investment: 200,
+    contactMethod: "",
     agreed: false,
   });
   const [state, setState] = useState<FormState>("idle");
 
   function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLFormElement>
   ) {
     const { name, value, type } = e.target;
     setForm((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
+      [name]: type === "checkbox"
+        ? (e.target as HTMLInputElement).checked
+        : type === "range"
+        ? Number(value)
+        : value,
     }));
   }
 
@@ -51,6 +58,9 @@ export default function SubscribeForm() {
           program: form.program,
           experience: form.experience || "—",
           goal: form.goal,
+          commitment: form.commitment,
+          investment: `$${form.investment}/month`,
+          contact_method: form.contactMethod,
           to_email: "johntran@tontonfrancky.com",
         },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
@@ -81,7 +91,7 @@ export default function SubscribeForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onChange={handleChange} onSubmit={handleSubmit} className="space-y-6">
       {state === "error" && (
         <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
           {tr.errorMsg}
@@ -101,7 +111,6 @@ export default function SubscribeForm() {
             autoComplete="given-name"
             required
             value={form.firstName}
-            onChange={handleChange}
             placeholder="Alex"
             className={inputClass}
           />
@@ -117,7 +126,6 @@ export default function SubscribeForm() {
             autoComplete="family-name"
             required
             value={form.lastName}
-            onChange={handleChange}
             placeholder="Johnson"
             className={inputClass}
           />
@@ -137,7 +145,6 @@ export default function SubscribeForm() {
             autoComplete="email"
             required
             value={form.email}
-            onChange={handleChange}
             placeholder="alex@example.com"
             className={inputClass}
           />
@@ -152,7 +159,6 @@ export default function SubscribeForm() {
             type="tel"
             autoComplete="tel"
             value={form.phone}
-            onChange={handleChange}
             placeholder="+1 555 000 0000"
             className={inputClass}
           />
@@ -169,7 +175,6 @@ export default function SubscribeForm() {
           name="program"
           required
           value={form.program}
-          onChange={handleChange}
           className={inputClass}
         >
           <option value="" disabled>{tr.programPlaceholder}</option>
@@ -188,7 +193,6 @@ export default function SubscribeForm() {
           id="experience"
           name="experience"
           value={form.experience}
-          onChange={handleChange}
           className={inputClass}
         >
           {tr.experienceOptions.map((o) => (
@@ -208,10 +212,91 @@ export default function SubscribeForm() {
           required
           rows={3}
           value={form.goal}
-          onChange={handleChange}
           placeholder={tr.goalPlaceholder}
           className={`${inputClass} resize-none`}
         />
+      </div>
+
+      {/* Commitment level */}
+      <div>
+        <p className="block text-sm font-medium text-zinc-300 mb-2">
+          {tr.commitment} <span className="text-amber-500">*</span>
+        </p>
+        <div className="grid grid-cols-3 gap-2">
+          {tr.commitmentOptions.map((o) => (
+            <label
+              key={o.value}
+              className={`relative flex flex-col items-center justify-center gap-1 rounded-xl border px-3 py-3 text-center cursor-pointer transition-colors duration-200 ${
+                form.commitment === o.value
+                  ? "border-amber-500 bg-amber-500/10 text-amber-400"
+                  : "border-zinc-700 bg-zinc-800 text-zinc-400 hover:border-zinc-500"
+              }`}
+            >
+              <input
+                type="radio"
+                name="commitment"
+                value={o.value}
+                required={form.commitment === ""}
+                checked={form.commitment === o.value}
+                className="sr-only"
+              />
+              <span className="text-sm font-semibold">{o.label}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Investment slider */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <label className="text-sm font-medium text-zinc-300" htmlFor="investment">
+            {tr.investment}
+          </label>
+          <span className="text-base font-bold text-amber-400">${form.investment}</span>
+        </div>
+        <input
+          id="investment"
+          name="investment"
+          type="range"
+          min={tr.investmentMin}
+          max={tr.investmentMax}
+          step={50}
+          value={form.investment}
+          className="w-full h-2 rounded-full appearance-none cursor-pointer bg-zinc-700 accent-amber-500"
+        />
+        <div className="flex justify-between text-xs text-zinc-500 mt-1">
+          <span>${tr.investmentMin}</span>
+          <span>${tr.investmentMax}</span>
+        </div>
+      </div>
+
+      {/* Contact method */}
+      <div>
+        <p className="block text-sm font-medium text-zinc-300 mb-2">
+          {tr.contactMethod} <span className="text-amber-500">*</span>
+        </p>
+        <div className="grid grid-cols-3 gap-2">
+          {tr.contactOptions.map((o) => (
+            <label
+              key={o.value}
+              className={`flex items-center justify-center gap-2 rounded-xl border px-3 py-3 cursor-pointer transition-colors duration-200 ${
+                form.contactMethod === o.value
+                  ? "border-amber-500 bg-amber-500/10 text-amber-400"
+                  : "border-zinc-700 bg-zinc-800 text-zinc-400 hover:border-zinc-500"
+              }`}
+            >
+              <input
+                type="radio"
+                name="contactMethod"
+                value={o.value}
+                required={form.contactMethod === ""}
+                checked={form.contactMethod === o.value}
+                className="sr-only"
+              />
+              <span className="text-sm font-semibold">{o.label}</span>
+            </label>
+          ))}
+        </div>
       </div>
 
       {/* Consent */}
@@ -222,7 +307,6 @@ export default function SubscribeForm() {
           type="checkbox"
           required
           checked={form.agreed}
-          onChange={handleChange}
           className="mt-1 h-4 w-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500"
         />
         <label htmlFor="agreed" className="text-sm text-zinc-400">
