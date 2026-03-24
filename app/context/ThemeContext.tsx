@@ -8,10 +8,10 @@ const VALID_THEMES: Theme[] = ["blue", "green", "orange", "silver"];
 
 type ThemeContextType = { theme: Theme; setTheme: (t: Theme) => void };
 
-const ThemeContext = createContext<ThemeContextType>({ theme: "blue", setTheme: () => {} });
+const ThemeContext = createContext<ThemeContextType>({ theme: "silver", setTheme: () => {} });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("blue");
+  const [theme, setThemeState] = useState<Theme>("silver");
 
   useEffect(() => {
     const stored = localStorage.getItem("theme") as Theme | null;

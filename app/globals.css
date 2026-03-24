@@ -12,7 +12,15 @@
 :root {
   --background: #09090b;
   --foreground: #f4f4f5;
-  /* Blue (default) */
+  /* Silver (default) */
+  --p-400: #94a3b8;
+  --p-500: #64748b;
+  --p-600: #475569;
+  --p-950: #0f172a;
+  --glow-rgb: 100 116 139;
+}
+
+[data-theme="blue"] {
   --p-400: #60a5fa;
   --p-500: #3b82f6;
   --p-600: #2563eb;
