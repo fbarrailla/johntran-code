@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 import Image from "next/image";
 import SubscribeForm from "./components/SubscribeForm";
 import { useLang } from "./context/LanguageContext";
@@ -104,7 +104,7 @@ function Reveal({ children, className = "", delay = 0, style }: { children: Reac
   );
 }
 
-function SocialLinks({ className = "" }: { className?: string }) {
+const SocialLinks = memo(function SocialLinks({ className = "" }: { className?: string }) {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       {SOCIAL_LINKS.map((s) => (
@@ -121,7 +121,7 @@ function SocialLinks({ className = "" }: { className?: string }) {
       ))}
     </div>
   );
-}
+});
 
 const THEME_OPTIONS: { name: Theme; color: string; label: string }[] = [
   { name: "blue",   color: "#3b82f6", label: "Blue"   },
@@ -130,7 +130,7 @@ const THEME_OPTIONS: { name: Theme; color: string; label: string }[] = [
   { name: "silver", color: "#64748b", label: "Silver" },
 ];
 
-function ThemePicker() {
+const ThemePicker = memo(function ThemePicker() {
   const { theme, setTheme } = useTheme();
   return (
     <div className="flex items-center gap-1.5" role="group" aria-label="Color theme">
@@ -149,9 +149,9 @@ function ThemePicker() {
       ))}
     </div>
   );
-}
+});
 
-function LanguagePicker() {
+const LanguagePicker = memo(function LanguagePicker() {
   const { lang, setLang } = useLang();
   return (
     <div
@@ -184,7 +184,7 @@ function LanguagePicker() {
       </button>
     </div>
   );
-}
+});
 
 export default function Home() {
   const { lang } = useLang();
@@ -208,23 +208,30 @@ export default function Home() {
     );
   }, []);
 
-  useEffect(() => {
-    if (reducedMotion.current) return;
+  const onScroll = useCallback(() => {
     const hero = heroRef.current;
     if (!hero) return;
+    const { top, height } = hero.getBoundingClientRect();
+    if (top < height && top > -height) {
+      setParallaxY(-top * 0.4);
+    }
+  }, []);
 
-    const onScroll = () => {
-      const { top, height } = hero.getBoundingClientRect();
-      // Only animate while the hero is visible
-      if (top < height && top > -height) {
-        // Shift background at 40% of scroll speed
-        setParallaxY(-top * 0.4);
-      }
+  useEffect(() => {
+    if (reducedMotion.current) return;
+
+    let rafId = 0;
+    const handleScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(onScroll);
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, [onScroll]);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans">
@@ -301,6 +308,7 @@ export default function Home() {
               src="/john_bw.jpg"
               alt="John Tran — lifestyle coach"
               fill
+              sizes="100vw"
               className="object-cover object-[center_15%]"
               priority
             />
@@ -353,6 +361,7 @@ export default function Home() {
                 src="/john-tran.jpg"
                 alt="John Tran, lifestyle coach"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 loading="lazy"
                 className="object-cover object-top"
               />
