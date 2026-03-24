@@ -84,6 +84,25 @@ function CountUp({ value }: { value: string }) {
   return <span ref={ref}>{display}{suffix}</span>;
 }
 
+function Reveal({ children, className = "", delay = 0, style }: { children: React.ReactNode; className?: string; delay?: number; style?: React.CSSProperties }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { el.classList.add("in-view"); obs.disconnect(); } },
+      { threshold: 0.08 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className={`reveal ${className}`} style={{ ...(delay ? { transitionDelay: `${delay}ms` } : {}), ...style }}>
+      {children}
+    </div>
+  );
+}
+
 function SocialLinks({ className = "" }: { className?: string }) {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
@@ -94,7 +113,7 @@ function SocialLinks({ className = "" }: { className?: string }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={s.label}
-          className="text-zinc-500 hover:text-blue-500 transition-colors duration-200"
+          className="text-zinc-500 hover:text-blue-500 transition-all duration-200 hover:scale-125 active:scale-90 inline-flex"
         >
           {s.icon}
         </a>
@@ -148,6 +167,17 @@ export default function Home() {
     typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
+
+  useEffect(() => {
+    console.log(
+      "%c👋 Hey, curious one.",
+      "font-size:16px;font-weight:bold;color:#60a5fa;"
+    );
+    console.log(
+      "%cThis site was built with care. If you're into web craft, reach out — john@johntrancoaching.com",
+      "color:#a1a1aa;font-size:13px;"
+    );
+  }, []);
 
   useEffect(() => {
     if (reducedMotion.current) return;
@@ -247,7 +277,7 @@ export default function Home() {
 
           <div className="relative z-10 mx-auto max-w-5xl px-6 py-16 sm:py-24 w-full">
             <div className="max-w-xl">
-              <p className="inline-block mb-5 rounded-full border border-blue-500/40 bg-blue-500/10 px-4 py-1 text-sm font-medium text-blue-400">
+              <p className="badge-pulse inline-block mb-5 rounded-full border border-blue-500/40 bg-blue-500/10 px-4 py-1 text-sm font-medium text-blue-400">
                 {tr.hero.tag}
               </p>
               <h1 className="text-5xl sm:text-7xl font-extrabold leading-[1.05] tracking-tight text-white mb-6">
@@ -260,7 +290,7 @@ export default function Home() {
               </p>
               <a
                 href="#apply"
-                className="inline-block rounded-full bg-blue-500 px-8 py-4 text-base font-semibold text-zinc-950 shadow-lg shadow-blue-500/20 hover:bg-blue-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+                className="inline-block rounded-full bg-blue-500 px-8 py-4 text-base font-semibold text-zinc-950 shadow-lg shadow-blue-500/20 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/30 active:translate-y-px active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
               >
                 {tr.hero.cta}
               </a>
@@ -273,11 +303,11 @@ export default function Home() {
         <section className="border-b border-zinc-800 bg-zinc-950 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_100%,rgba(59,130,246,0.1),transparent)] pointer-events-none" />
           <div className="relative mx-auto max-w-5xl px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-zinc-800/60">
-            {tr.stats.map((stat) => (
-              <div key={stat.label} className="px-4 first:pl-0 last:pr-0">
+            {tr.stats.map((stat, i) => (
+              <Reveal key={stat.label} delay={i * 100} className="px-4 first:pl-0 last:pr-0">
                 <p className="text-3xl font-extrabold text-blue-400 tracking-tight"><CountUp value={stat.value} /></p>
                 <p className="mt-1 text-sm text-zinc-400">{stat.label}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -285,7 +315,7 @@ export default function Home() {
         {/* ── About ── */}
         <section className="bg-zinc-900 border-y border-zinc-800">
           <div className="mx-auto max-w-5xl px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="rounded-2xl overflow-hidden relative" style={{ aspectRatio: "3/4" }}>
+            <Reveal className="rounded-2xl overflow-hidden relative" style={{ aspectRatio: "3/4" }} delay={0}>
               <Image
                 src="/john-tran.jpg"
                 alt="John Tran, lifestyle coach"
@@ -293,8 +323,8 @@ export default function Home() {
                 loading="lazy"
                 className="object-cover object-top"
               />
-            </div>
-            <div>
+            </Reveal>
+            <Reveal delay={150}>
               <p className="text-sm font-semibold uppercase tracking-widest text-blue-500 mb-3">
                 {tr.about.eyebrow}
               </p>
@@ -311,7 +341,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </Reveal>
           </div>
         </section>
 
@@ -332,12 +362,12 @@ export default function Home() {
                 ? "bg-white/20"
                 : (["bg-violet-500/15 ring-1 ring-violet-500/25", "bg-sky-500/15 ring-1 ring-sky-500/25", "bg-emerald-500/15 ring-1 ring-emerald-500/25"] as const)[i] ?? "bg-zinc-800";
               return (
+                <Reveal key={s.title} delay={i * 120}>
                 <div
-                  key={s.title}
-                  className={`rounded-2xl p-8 border transition-colors duration-200 ${
+                  className={`rounded-2xl p-8 border transition-all duration-300 hover:-translate-y-2 ${
                     highlighted
-                      ? "bg-blue-500 border-blue-500 shadow-xl shadow-blue-500/20"
-                      : "bg-zinc-900 border-zinc-800 hover:border-zinc-600"
+                      ? "bg-blue-500 border-blue-500 shadow-xl shadow-blue-500/20 hover:shadow-2xl hover:shadow-blue-500/30"
+                      : "bg-zinc-900 border-zinc-800 hover:border-zinc-600 hover:shadow-xl hover:shadow-zinc-950/60"
                   }`}
                 >
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl mb-5 ${iconTheme}`} aria-hidden="true">{s.icon}</div>
@@ -356,6 +386,7 @@ export default function Home() {
                     </span>
                   )}
                 </div>
+                </Reveal>
               );
             })}
           </div>
@@ -368,10 +399,10 @@ export default function Home() {
               {tr.testimonials.eyebrow}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {tr.testimonials.items.map((item) => (
+              {tr.testimonials.items.map((item, i) => (
+                <Reveal key={item.name} delay={i * 120}>
                 <figure
-                  key={item.name}
-                  className="rounded-2xl bg-zinc-950 p-8 border border-zinc-800 border-t-2 border-t-blue-500/50 flex flex-col"
+                  className="rounded-2xl bg-zinc-950 p-8 border border-zinc-800 border-t-2 border-t-blue-500/50 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-zinc-950/60"
                 >
                   <svg className="w-8 h-8 text-blue-500/40 mb-4 flex-shrink-0" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
                     <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
@@ -386,6 +417,7 @@ export default function Home() {
                     <p className="text-sm text-zinc-500">{item.role}</p>
                   </figcaption>
                 </figure>
+                </Reveal>
               ))}
             </div>
           </div>
