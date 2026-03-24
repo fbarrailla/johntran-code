@@ -45,6 +45,45 @@ const SOCIAL_LINKS = [
   },
 ];
 
+function parseStatValue(value: string): { num: number; suffix: string } {
+  const match = value.match(/^(\d+)(.*)$/);
+  if (!match) return { num: 0, suffix: value };
+  return { num: parseInt(match[1], 10), suffix: match[2] };
+}
+
+function CountUp({ value }: { value: string }) {
+  const { num, suffix } = parseStatValue(value);
+  const [display, setDisplay] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || started.current) return;
+        started.current = true;
+        const duration = 1200;
+        const startTime = performance.now();
+        const tick = (now: number) => {
+          const progress = Math.min((now - startTime) / duration, 1);
+          // ease-out cubic
+          const eased = 1 - Math.pow(1 - progress, 3);
+          setDisplay(Math.round(eased * num));
+          if (progress < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [num]);
+
+  return <span ref={ref}>{display}{suffix}</span>;
+}
+
 function SocialLinks({ className = "" }: { className?: string }) {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
@@ -235,7 +274,7 @@ export default function Home() {
           <div className="mx-auto max-w-5xl px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {tr.stats.map((stat) => (
               <div key={stat.label}>
-                <p className="text-3xl font-extrabold text-amber-400 tracking-tight">{stat.value}</p>
+                <p className="text-3xl font-extrabold text-amber-400 tracking-tight"><CountUp value={stat.value} /></p>
                 <p className="mt-1 text-sm text-zinc-400">{stat.label}</p>
               </div>
             ))}
