@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  assetPrefix: '/johntran-code',
+  basePath: '/johntran-code',
   images: {    
     unoptimized: true,
   },
