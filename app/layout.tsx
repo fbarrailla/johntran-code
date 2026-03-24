@@ -1,19 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Be_Vietnam_Pro } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { LanguageProvider } from "./context/LanguageContext";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const beVietnamPro = Be_Vietnam_Pro({
+  variable: "--font-sans",
+  subsets: ["latin", "vietnamese"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -55,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${beVietnamPro.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-zinc-950 text-zinc-100">
         <LanguageProvider>{children}</LanguageProvider>
