@@ -173,10 +173,10 @@ export default function SubscribeForm() {
       </div>
 
       {/* Commitment level */}
-      <div>
-        <p className="text-sm font-medium text-zinc-300 mb-2">
+      <fieldset>
+        <legend className="text-sm font-medium text-zinc-300 mb-2">
           {tr.commitment} <span className="text-primary-500">*</span>
-        </p>
+        </legend>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           {tr.commitmentOptions.map((o) => (
             <label
@@ -194,7 +194,7 @@ export default function SubscribeForm() {
             </label>
           ))}
         </div>
-      </div>
+      </fieldset>
 
       {/* Investment slider */}
       <div>
@@ -215,10 +215,10 @@ export default function SubscribeForm() {
       </div>
 
       {/* Contact method */}
-      <div>
-        <p className="text-sm font-medium text-zinc-300 mb-2">
+      <fieldset>
+        <legend className="text-sm font-medium text-zinc-300 mb-2">
           {tr.contactMethod} <span className="text-primary-500">*</span>
-        </p>
+        </legend>
         <div className="grid grid-cols-3 gap-2">
           {tr.contactOptions.map((o) => (
             <label
@@ -236,7 +236,7 @@ export default function SubscribeForm() {
             </label>
           ))}
         </div>
-      </div>
+      </fieldset>
 
       {/* Consent */}
       <div className="flex items-start gap-3">
@@ -245,7 +245,7 @@ export default function SubscribeForm() {
           className="mt-1 h-4 w-4 rounded border-zinc-600 bg-zinc-800 text-primary-500 focus:ring-primary-500" />
         <label htmlFor="agreed" className="text-sm text-zinc-400">
           {tr.consent}{" "}
-          <span className="text-primary-500 underline cursor-pointer">{tr.consentLink}</span>.
+          <a href="/privacy" className="text-primary-500 underline hover:text-primary-400 transition-colors duration-200">{tr.consentLink}</a>.
         </label>
       </div>
 

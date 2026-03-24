@@ -7,6 +7,8 @@ import { useLang } from "./context/LanguageContext";
 import { useTheme, type Theme } from "./context/ThemeContext";
 import { t } from "./i18n/translations";
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 const SOCIAL_LINKS = [
   {
     label: "Instagram",
@@ -82,7 +84,7 @@ function CountUp({ value }: { value: string }) {
     return () => observer.disconnect();
   }, [num]);
 
-  return <span ref={ref}>{display}{suffix}</span>;
+  return <span ref={ref} aria-live="polite" aria-atomic="true">{display}{suffix}</span>;
 }
 
 function Reveal({ children, className = "", delay = 0, style }: { children: React.ReactNode; className?: string; delay?: number; style?: React.CSSProperties }) {
@@ -113,7 +115,7 @@ const SocialLinks = memo(function SocialLinks({ className = "" }: { className?: 
           href={s.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={s.label}
+          aria-label={`${s.label} (opens in new tab)`}
           className="text-zinc-500 hover:text-primary-500 transition-all duration-200 hover:scale-125 active:scale-90 inline-flex"
         >
           {s.icon}
@@ -123,17 +125,17 @@ const SocialLinks = memo(function SocialLinks({ className = "" }: { className?: 
   );
 });
 
-const THEME_OPTIONS: { name: Theme; color: string; label: string }[] = [
-  { name: "blue",   color: "#3b82f6", label: "Blue"   },
-  { name: "green",  color: "#22c55e", label: "Green"  },
-  { name: "orange", color: "#f97316", label: "Orange" },
-  { name: "silver", color: "#64748b", label: "Silver" },
+const THEME_OPTIONS: { name: Theme; label: string }[] = [
+  { name: "blue",   label: "Blue"   },
+  { name: "green",  label: "Green"  },
+  { name: "orange", label: "Orange" },
+  { name: "silver", label: "Silver" },
 ];
 
 const ThemePicker = memo(function ThemePicker() {
   const { theme, setTheme } = useTheme();
   return (
-    <div className="flex items-center gap-1.5" role="group" aria-label="Color theme">
+    <div className="flex items-center gap-0.5" role="group" aria-label="Color theme">
       {THEME_OPTIONS.map((t) => (
         <button
           key={t.name}
@@ -141,11 +143,16 @@ const ThemePicker = memo(function ThemePicker() {
           onClick={() => setTheme(t.name)}
           aria-label={`${t.label} theme`}
           aria-pressed={theme === t.name}
-          className={`w-5 h-5 rounded-full transition-all duration-200 ring-offset-2 ring-offset-zinc-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
-            theme === t.name ? "ring-2 ring-white scale-110" : "opacity-50 hover:opacity-90 hover:scale-110"
+          className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 ${
+            theme === t.name ? "scale-110" : "opacity-50 hover:opacity-90 hover:scale-105"
           }`}
-          style={{ backgroundColor: t.color }}
-        />
+        >
+          <span
+            className={`w-5 h-5 rounded-full block transition-all duration-200 ${theme === t.name ? "ring-2 ring-white ring-offset-1 ring-offset-zinc-950" : ""}`}
+            data-theme={t.name}
+            style={{ backgroundColor: "var(--p-500)" }}
+          />
+        </button>
       ))}
     </div>
   );
@@ -192,15 +199,29 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [parallaxY, setParallaxY] = useState(0);
   const heroRef = useRef<HTMLElement>(null);
-  const reducedMotion = useRef(
-    typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
+  const [heroInView, setHeroInView] = useState(true);
+  const reducedMotion = useRef(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    reducedMotion.current = mq.matches;
+    const handler = (e: MediaQueryListEvent) => { reducedMotion.current = e.matches; };
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero) return;
+    const obs = new IntersectionObserver(([e]) => setHeroInView(e.isIntersecting), { threshold: 0 });
+    obs.observe(hero);
+    return () => obs.disconnect();
+  }, []);
 
   useEffect(() => {
     console.log(
       "%c👋 Hey, curious one.",
-      "font-size:16px;font-weight:bold;color:#60a5fa;"
+      "font-size:16px;font-weight:bold;"
     );
     console.log(
       "%cThis site was built with care. If you're into web craft, reach out — john@johntrancoaching.com",
@@ -318,7 +339,7 @@ export default function Home() {
 
           <div className="relative z-10 mx-auto max-w-5xl px-6 py-16 sm:py-24 w-full">
             <div className="max-w-xl">
-              <p className="badge-pulse inline-block mb-5 rounded-full border border-primary-500/40 bg-primary-500/10 px-4 py-1 text-sm font-medium text-primary-400">
+              <p className={`badge-pulse inline-block mb-5 rounded-full border border-primary-500/40 bg-primary-500/10 px-4 py-1 text-sm font-medium text-primary-400${heroInView ? "" : " [animation-play-state:paused]"}`}>
                 {tr.hero.tag}
               </p>
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight text-white mb-6">
@@ -343,7 +364,7 @@ export default function Home() {
         {/* ── Stats ── */}
         <section className="border-b border-zinc-800 bg-zinc-950 relative overflow-hidden">
           <div className="stats-glow absolute inset-0 pointer-events-none" />
-          <div className="relative mx-auto max-w-5xl px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center divide-x divide-zinc-800/60">
+          <div className="relative mx-auto max-w-5xl px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center md:divide-x divide-zinc-800/60">
             {tr.stats.map((stat, i) => (
               <Reveal key={stat.label} delay={i * 100} className="px-2 sm:px-4 first:pl-0 last:pr-0">
                 <p className="text-2xl sm:text-3xl font-extrabold text-primary-400 tracking-tight"><CountUp value={stat.value} /></p>
@@ -367,7 +388,7 @@ export default function Home() {
               />
             </Reveal>
             <Reveal delay={150}>
-              <p className="text-sm font-semibold uppercase tracking-widest text-primary-500 mb-3">
+              <p className="text-sm font-semibold uppercase tracking-widest text-primary-400 mb-3">
                 {tr.about.eyebrow}
               </p>
               <h2 className="text-3xl font-bold text-zinc-100 mb-4">
@@ -390,7 +411,7 @@ export default function Home() {
         {/* ── Programs ── */}
         <section className="mx-auto max-w-5xl px-6 py-20">
           <div className="text-center mb-12">
-            <p className="text-sm font-semibold uppercase tracking-widest text-primary-500 mb-2">
+            <p className="text-sm font-semibold uppercase tracking-widest text-primary-400 mb-2">
               {tr.programs.eyebrow}
             </p>
             <h2 className="text-3xl font-bold text-zinc-100">
@@ -413,13 +434,13 @@ export default function Home() {
                   }`}
                 >
                   <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center text-2xl sm:text-3xl mb-4 sm:mb-5 ${iconTheme}`} aria-hidden="true">{s.icon}</div>
-                  <p className={`text-xs font-semibold uppercase tracking-widest mb-1 ${highlighted ? "text-zinc-800" : "text-primary-500"}`}>
+                  <p className={`text-xs font-semibold uppercase tracking-widest mb-1 ${highlighted ? "text-zinc-950" : "text-primary-400"}`}>
                     {s.duration}
                   </p>
                   <h3 className={`text-xl font-bold mb-3 ${highlighted ? "text-zinc-950" : "text-zinc-100"}`}>
                     {s.title}
                   </h3>
-                  <p className={`text-sm leading-relaxed ${highlighted ? "text-zinc-800" : "text-zinc-400"}`}>
+                  <p className={`text-sm leading-relaxed ${highlighted ? "text-zinc-950" : "text-zinc-400"}`}>
                     {s.description}
                   </p>
                   {highlighted && (
@@ -437,7 +458,7 @@ export default function Home() {
         {/* ── Testimonials ── */}
         <section className="bg-zinc-900 border-y border-zinc-800">
           <div className="mx-auto max-w-5xl px-6 py-20">
-            <p className="text-center text-sm font-semibold uppercase tracking-widest text-primary-500 mb-12">
+            <p className="text-center text-sm font-semibold uppercase tracking-widest text-primary-400 mb-12">
               {tr.testimonials.eyebrow}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -468,7 +489,7 @@ export default function Home() {
         {/* ── Application form ── */}
         <section id="apply" className="mx-auto max-w-2xl px-6 py-24 scroll-mt-16">
           <div className="text-center mb-10">
-            <p className="text-sm font-semibold uppercase tracking-widest text-primary-500 mb-2">
+            <p className="text-sm font-semibold uppercase tracking-widest text-primary-400 mb-2">
               {tr.apply.eyebrow}
             </p>
             <h2 className="text-3xl font-bold text-zinc-100 mb-3">
@@ -486,7 +507,7 @@ export default function Home() {
       <footer className="border-t border-zinc-800 bg-zinc-900">
         <div className="mx-auto max-w-5xl px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
           <span>
-            © {new Date().getFullYear()} John Tran Coaching. {tr.footer.rights}
+            © {CURRENT_YEAR} John Tran Coaching. {tr.footer.rights}
           </span>
           <SocialLinks />
           <span>

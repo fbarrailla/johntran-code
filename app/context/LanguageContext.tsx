@@ -18,12 +18,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const stored = localStorage.getItem("lang") as Lang | null;
-    if (stored === "en" || stored === "vn") setLangState(stored);
+    if (stored === "en" || stored === "vn") {
+      setLangState(stored);
+      document.documentElement.setAttribute("lang", stored === "vn" ? "vi" : "en");
+    }
   }, []);
 
   function setLang(l: Lang) {
     setLangState(l);
     localStorage.setItem("lang", l);
+    document.documentElement.setAttribute("lang", l === "vn" ? "vi" : "en");
   }
 
   return (

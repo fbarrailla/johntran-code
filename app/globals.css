@@ -44,14 +44,6 @@
   --glow-rgb: 249 115 22;
 }
 
-[data-theme="silver"] {
-  --p-400: #94a3b8;
-  --p-500: #64748b;
-  --p-600: #475569;
-  --p-950: #0f172a;
-  --glow-rgb: 100 116 139;
-}
-
 html {
   scroll-behavior: smooth;
 }
