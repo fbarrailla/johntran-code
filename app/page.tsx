@@ -270,10 +270,11 @@ export default function Home() {
         </section>
 
         {/* ── Stats ── */}
-        <section className="border-b border-zinc-800 bg-zinc-950">
-          <div className="mx-auto max-w-5xl px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <section className="border-b border-zinc-800 bg-zinc-950 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_100%,rgba(59,130,246,0.1),transparent)] pointer-events-none" />
+          <div className="relative mx-auto max-w-5xl px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-zinc-800/60">
             {tr.stats.map((stat) => (
-              <div key={stat.label}>
+              <div key={stat.label} className="px-4 first:pl-0 last:pr-0">
                 <p className="text-3xl font-extrabold text-blue-400 tracking-tight"><CountUp value={stat.value} /></p>
                 <p className="mt-1 text-sm text-zinc-400">{stat.label}</p>
               </div>
@@ -302,10 +303,10 @@ export default function Home() {
               </h2>
               <p className="text-zinc-400 mb-4 leading-relaxed">{tr.about.p1}</p>
               <p className="text-zinc-400 mb-6 leading-relaxed">{tr.about.p2}</p>
-              <ul className="space-y-2 text-sm text-zinc-300">
+              <ul className="space-y-3 text-sm text-zinc-300">
                 {tr.about.certs.map((cert) => (
-                  <li key={cert} className="flex items-center gap-2">
-                    <span className="text-blue-500" aria-hidden="true">✓</span>
+                  <li key={cert} className="flex items-start gap-3">
+                    <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/15 ring-1 ring-blue-500/30 flex items-center justify-center text-blue-400 text-xs font-bold" aria-hidden="true">✓</span>
                     {cert}
                   </li>
                 ))}
@@ -325,8 +326,11 @@ export default function Home() {
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {tr.programs.items.map((s) => {
+            {tr.programs.items.map((s, i) => {
               const highlighted = "highlight" in s && s.highlight;
+              const iconTheme = highlighted
+                ? "bg-white/20"
+                : (["bg-violet-500/15 ring-1 ring-violet-500/25", "bg-sky-500/15 ring-1 ring-sky-500/25", "bg-emerald-500/15 ring-1 ring-emerald-500/25"] as const)[i] ?? "bg-zinc-800";
               return (
                 <div
                   key={s.title}
@@ -336,7 +340,7 @@ export default function Home() {
                       : "bg-zinc-900 border-zinc-800 hover:border-zinc-600"
                   }`}
                 >
-                  <div className="text-3xl mb-4" aria-hidden="true">{s.icon}</div>
+                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl mb-5 ${iconTheme}`} aria-hidden="true">{s.icon}</div>
                   <p className={`text-xs font-semibold uppercase tracking-widest mb-1 ${highlighted ? "text-zinc-800" : "text-blue-500"}`}>
                     {s.duration}
                   </p>
@@ -367,11 +371,14 @@ export default function Home() {
               {tr.testimonials.items.map((item) => (
                 <figure
                   key={item.name}
-                  className="rounded-2xl bg-zinc-950 p-8 border border-zinc-800"
+                  className="rounded-2xl bg-zinc-950 p-8 border border-zinc-800 border-t-2 border-t-blue-500/50 flex flex-col"
                 >
-                  <blockquote>
+                  <svg className="w-8 h-8 text-blue-500/40 mb-4 flex-shrink-0" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                    <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+                  </svg>
+                  <blockquote className="flex-1">
                     <p className="text-zinc-400 italic mb-6 leading-relaxed">
-                      &ldquo;{item.quote}&rdquo;
+                      {item.quote}
                     </p>
                   </blockquote>
                   <figcaption>
