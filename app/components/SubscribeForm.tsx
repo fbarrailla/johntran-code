@@ -27,23 +27,21 @@ export default function SubscribeForm() {
   const [state, setState] = useState<FormState>("idle");
 
   function handleChange(
-    e: React.ChangeEvent<HTMLFormElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) {
     const { name, value, type } = e.target;
     setForm((prev) => ({
       ...prev,
-      [name]: type === "checkbox"
-        ? (e.target as HTMLInputElement).checked
-        : type === "range"
-        ? Number(value)
-        : value,
+      [name]:
+        type === "checkbox" ? (e.target as HTMLInputElement).checked :
+        type === "range"    ? Number(value) :
+        value,
     }));
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setState("submitting");
-
     try {
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
@@ -83,15 +81,13 @@ export default function SubscribeForm() {
           </svg>
         </div>
         <h3 className="text-2xl font-bold text-zinc-100 mb-2">{tr.successTitle}</h3>
-        <p className="text-zinc-400">
-          {tr.successMsg.replace("{name}", form.firstName)}
-        </p>
+        <p className="text-zinc-400">{tr.successMsg.replace("{name}", form.firstName)}</p>
       </div>
     );
   }
 
   return (
-    <form onChange={handleChange} onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {state === "error" && (
         <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
           {tr.errorMsg}
@@ -104,31 +100,17 @@ export default function SubscribeForm() {
           <label className="block text-sm font-medium text-zinc-300 mb-1" htmlFor="firstName">
             {tr.firstName} <span className="text-amber-500">*</span>
           </label>
-          <input
-            id="firstName"
-            name="firstName"
-            type="text"
-            autoComplete="given-name"
-            required
-            value={form.firstName}
-            placeholder="Alex"
-            className={inputClass}
-          />
+          <input id="firstName" name="firstName" type="text" autoComplete="given-name"
+            required value={form.firstName} onChange={handleChange}
+            placeholder="Alex" className={inputClass} />
         </div>
         <div>
           <label className="block text-sm font-medium text-zinc-300 mb-1" htmlFor="lastName">
             {tr.lastName} <span className="text-amber-500">*</span>
           </label>
-          <input
-            id="lastName"
-            name="lastName"
-            type="text"
-            autoComplete="family-name"
-            required
-            value={form.lastName}
-            placeholder="Johnson"
-            className={inputClass}
-          />
+          <input id="lastName" name="lastName" type="text" autoComplete="family-name"
+            required value={form.lastName} onChange={handleChange}
+            placeholder="Johnson" className={inputClass} />
         </div>
       </div>
 
@@ -138,30 +120,17 @@ export default function SubscribeForm() {
           <label className="block text-sm font-medium text-zinc-300 mb-1" htmlFor="email">
             {tr.email} <span className="text-amber-500">*</span>
           </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            value={form.email}
-            placeholder="alex@example.com"
-            className={inputClass}
-          />
+          <input id="email" name="email" type="email" autoComplete="email"
+            required value={form.email} onChange={handleChange}
+            placeholder="alex@example.com" className={inputClass} />
         </div>
         <div>
           <label className="block text-sm font-medium text-zinc-300 mb-1" htmlFor="phone">
             {tr.phone}
           </label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            autoComplete="tel"
-            value={form.phone}
-            placeholder="+1 555 000 0000"
-            className={inputClass}
-          />
+          <input id="phone" name="phone" type="tel" autoComplete="tel"
+            value={form.phone} onChange={handleChange}
+            placeholder="+1 555 000 0000" className={inputClass} />
         </div>
       </div>
 
@@ -170,13 +139,8 @@ export default function SubscribeForm() {
         <label className="block text-sm font-medium text-zinc-300 mb-1" htmlFor="program">
           {tr.program} <span className="text-amber-500">*</span>
         </label>
-        <select
-          id="program"
-          name="program"
-          required
-          value={form.program}
-          className={inputClass}
-        >
+        <select id="program" name="program" required value={form.program}
+          onChange={handleChange} className={inputClass}>
           <option value="" disabled>{tr.programPlaceholder}</option>
           {tr.programs.map((p) => (
             <option key={p.id} value={p.id}>{p.label}</option>
@@ -189,12 +153,8 @@ export default function SubscribeForm() {
         <label className="block text-sm font-medium text-zinc-300 mb-1" htmlFor="experience">
           {tr.experience}
         </label>
-        <select
-          id="experience"
-          name="experience"
-          value={form.experience}
-          className={inputClass}
-        >
+        <select id="experience" name="experience" value={form.experience}
+          onChange={handleChange} className={inputClass}>
           {tr.experienceOptions.map((o) => (
             <option key={o.value} value={o.value}>{o.label}</option>
           ))}
@@ -206,40 +166,30 @@ export default function SubscribeForm() {
         <label className="block text-sm font-medium text-zinc-300 mb-1" htmlFor="goal">
           {tr.goal} <span className="text-amber-500">*</span>
         </label>
-        <textarea
-          id="goal"
-          name="goal"
-          required
-          rows={3}
-          value={form.goal}
+        <textarea id="goal" name="goal" required rows={3}
+          value={form.goal} onChange={handleChange}
           placeholder={tr.goalPlaceholder}
-          className={`${inputClass} resize-none`}
-        />
+          className={`${inputClass} resize-none`} />
       </div>
 
       {/* Commitment level */}
       <div>
-        <p className="block text-sm font-medium text-zinc-300 mb-2">
+        <p className="text-sm font-medium text-zinc-300 mb-2">
           {tr.commitment} <span className="text-amber-500">*</span>
         </p>
         <div className="grid grid-cols-3 gap-2">
           {tr.commitmentOptions.map((o) => (
             <label
               key={o.value}
-              className={`relative flex flex-col items-center justify-center gap-1 rounded-xl border px-3 py-3 text-center cursor-pointer transition-colors duration-200 ${
+              className={`flex flex-col items-center justify-center rounded-xl border px-3 py-3 text-center cursor-pointer transition-colors duration-200 ${
                 form.commitment === o.value
                   ? "border-amber-500 bg-amber-500/10 text-amber-400"
                   : "border-zinc-700 bg-zinc-800 text-zinc-400 hover:border-zinc-500"
               }`}
             >
-              <input
-                type="radio"
-                name="commitment"
-                value={o.value}
-                required={form.commitment === ""}
-                checked={form.commitment === o.value}
-                className="sr-only"
-              />
+              <input type="radio" name="commitment" value={o.value}
+                required={form.commitment === ""} checked={form.commitment === o.value}
+                onChange={handleChange} className="sr-only" />
               <span className="text-sm font-semibold">{o.label}</span>
             </label>
           ))}
@@ -254,16 +204,10 @@ export default function SubscribeForm() {
           </label>
           <span className="text-base font-bold text-amber-400">${form.investment}</span>
         </div>
-        <input
-          id="investment"
-          name="investment"
-          type="range"
-          min={tr.investmentMin}
-          max={tr.investmentMax}
-          step={50}
-          value={form.investment}
-          className="w-full h-2 rounded-full appearance-none cursor-pointer bg-zinc-700 accent-amber-500"
-        />
+        <input id="investment" name="investment" type="range"
+          min={tr.investmentMin} max={tr.investmentMax} step={50}
+          value={form.investment} onChange={handleChange}
+          className="w-full h-2 rounded-full appearance-none cursor-pointer bg-zinc-700 accent-amber-500" />
         <div className="flex justify-between text-xs text-zinc-500 mt-1">
           <span>${tr.investmentMin}</span>
           <span>${tr.investmentMax}</span>
@@ -272,27 +216,22 @@ export default function SubscribeForm() {
 
       {/* Contact method */}
       <div>
-        <p className="block text-sm font-medium text-zinc-300 mb-2">
+        <p className="text-sm font-medium text-zinc-300 mb-2">
           {tr.contactMethod} <span className="text-amber-500">*</span>
         </p>
         <div className="grid grid-cols-3 gap-2">
           {tr.contactOptions.map((o) => (
             <label
               key={o.value}
-              className={`flex items-center justify-center gap-2 rounded-xl border px-3 py-3 cursor-pointer transition-colors duration-200 ${
+              className={`flex items-center justify-center rounded-xl border px-3 py-3 cursor-pointer transition-colors duration-200 ${
                 form.contactMethod === o.value
                   ? "border-amber-500 bg-amber-500/10 text-amber-400"
                   : "border-zinc-700 bg-zinc-800 text-zinc-400 hover:border-zinc-500"
               }`}
             >
-              <input
-                type="radio"
-                name="contactMethod"
-                value={o.value}
-                required={form.contactMethod === ""}
-                checked={form.contactMethod === o.value}
-                className="sr-only"
-              />
+              <input type="radio" name="contactMethod" value={o.value}
+                required={form.contactMethod === ""} checked={form.contactMethod === o.value}
+                onChange={handleChange} className="sr-only" />
               <span className="text-sm font-semibold">{o.label}</span>
             </label>
           ))}
@@ -301,25 +240,17 @@ export default function SubscribeForm() {
 
       {/* Consent */}
       <div className="flex items-start gap-3">
-        <input
-          id="agreed"
-          name="agreed"
-          type="checkbox"
-          required
-          checked={form.agreed}
-          className="mt-1 h-4 w-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500"
-        />
+        <input id="agreed" name="agreed" type="checkbox" required
+          checked={form.agreed} onChange={handleChange}
+          className="mt-1 h-4 w-4 rounded border-zinc-600 bg-zinc-800 text-amber-500 focus:ring-amber-500" />
         <label htmlFor="agreed" className="text-sm text-zinc-400">
           {tr.consent}{" "}
           <span className="text-amber-500 underline cursor-pointer">{tr.consentLink}</span>.
         </label>
       </div>
 
-      <button
-        type="submit"
-        disabled={state === "submitting"}
-        className="w-full rounded-lg bg-amber-500 px-6 py-3.5 text-base font-semibold text-zinc-950 shadow-sm hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 disabled:opacity-60 transition-colors duration-200"
-      >
+      <button type="submit" disabled={state === "submitting"}
+        className="w-full rounded-lg bg-amber-500 px-6 py-3.5 text-base font-semibold text-zinc-950 shadow-sm hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 disabled:opacity-60 transition-colors duration-200">
         {state === "submitting" ? tr.submitting : tr.submit}
       </button>
 
