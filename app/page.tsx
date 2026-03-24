@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import SubscribeForm from "./components/SubscribeForm";
 import { useLang } from "./context/LanguageContext";
@@ -103,6 +103,30 @@ export default function Home() {
   const { lang } = useLang();
   const tr = t[lang];
   const [menuOpen, setMenuOpen] = useState(false);
+  const [parallaxY, setParallaxY] = useState(0);
+  const heroRef = useRef<HTMLElement>(null);
+  const reducedMotion = useRef(
+    typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+
+  useEffect(() => {
+    if (reducedMotion.current) return;
+    const hero = heroRef.current;
+    if (!hero) return;
+
+    const onScroll = () => {
+      const { top, height } = hero.getBoundingClientRect();
+      // Only animate while the hero is visible
+      if (top < height && top > -height) {
+        // Shift background at 40% of scroll speed
+        setParallaxY(-top * 0.4);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans">
@@ -163,8 +187,14 @@ export default function Home() {
 
       <main>
         {/* ── Hero ── */}
-        <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-          <div className="absolute inset-0">
+        <section ref={heroRef} className="relative min-h-[92vh] flex items-center overflow-hidden">
+          <div
+            className="absolute inset-0"
+            style={{
+              transform: `scale(1.15) translateY(${parallaxY}px)`,
+              willChange: "transform",
+            }}
+          >
             <Image
               src="/john_bw.jpg"
               alt="John Tran — lifestyle coach"
