@@ -177,11 +177,11 @@ export default function SubscribeForm() {
         <p className="text-sm font-medium text-zinc-300 mb-2">
           {tr.commitment} <span className="text-blue-500">*</span>
         </p>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           {tr.commitmentOptions.map((o) => (
             <label
               key={o.value}
-              className={`flex flex-col items-center justify-center rounded-xl border px-3 py-3 text-center cursor-pointer transition-colors duration-200 ${
+              className={`flex flex-col items-center justify-center rounded-xl border px-3 py-3 text-center cursor-pointer transition-colors duration-200 min-h-11 ${
                 form.commitment === o.value
                   ? "border-blue-500 bg-blue-500/10 text-blue-400"
                   : "border-zinc-700 bg-zinc-800 text-zinc-400 hover:border-zinc-500"
@@ -223,7 +223,7 @@ export default function SubscribeForm() {
           {tr.contactOptions.map((o) => (
             <label
               key={o.value}
-              className={`flex items-center justify-center rounded-xl border px-3 py-3 cursor-pointer transition-colors duration-200 ${
+              className={`flex items-center justify-center rounded-xl border px-2 sm:px-3 py-3 cursor-pointer transition-colors duration-200 min-h-11 ${
                 form.contactMethod === o.value
                   ? "border-blue-500 bg-blue-500/10 text-blue-400"
                   : "border-zinc-700 bg-zinc-800 text-zinc-400 hover:border-zinc-500"

@@ -228,11 +228,11 @@ export default function Home() {
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((o) => !o)}
-            className="sm:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 shrink-0 ml-4 rounded-lg hover:bg-zinc-800 transition-colors duration-200"
+            className="sm:hidden flex flex-col justify-center items-center w-11 h-11 gap-1.5 shrink-0 ml-2 rounded-lg hover:bg-zinc-800 transition-colors duration-200"
           >
-            <span className={`block w-5 h-0.5 bg-zinc-300 transition-all duration-300 origin-center ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-            <span className={`block w-5 h-0.5 bg-zinc-300 transition-all duration-300 ${menuOpen ? "opacity-0 scale-x-0" : ""}`} />
-            <span className={`block w-5 h-0.5 bg-zinc-300 transition-all duration-300 origin-center ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+            <span className={`block w-5 h-[2px] bg-zinc-300 transition-all duration-300 origin-center ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+            <span className={`block w-5 h-[2px] bg-zinc-300 transition-all duration-300 ${menuOpen ? "opacity-0 scale-x-0" : ""}`} />
+            <span className={`block w-5 h-[2px] bg-zinc-300 transition-all duration-300 origin-center ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
           </button>
         </nav>
 
@@ -280,12 +280,12 @@ export default function Home() {
               <p className="badge-pulse inline-block mb-5 rounded-full border border-blue-500/40 bg-blue-500/10 px-4 py-1 text-sm font-medium text-blue-400">
                 {tr.hero.tag}
               </p>
-              <h1 className="text-5xl sm:text-7xl font-extrabold leading-[1.05] tracking-tight text-white mb-6">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight text-white mb-6">
                 {tr.hero.heading1}
                 <br />
                 <span className="text-blue-400">{tr.hero.heading2}</span>
               </h1>
-              <p className="text-lg text-zinc-300 mb-10 leading-relaxed max-w-md">
+              <p className="text-base sm:text-lg text-zinc-300 mb-10 leading-relaxed max-w-md">
                 {tr.hero.sub}
               </p>
               <a
@@ -302,11 +302,11 @@ export default function Home() {
         {/* ── Stats ── */}
         <section className="border-b border-zinc-800 bg-zinc-950 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_100%,rgba(59,130,246,0.1),transparent)] pointer-events-none" />
-          <div className="relative mx-auto max-w-5xl px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-zinc-800/60">
+          <div className="relative mx-auto max-w-5xl px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center divide-x divide-zinc-800/60">
             {tr.stats.map((stat, i) => (
-              <Reveal key={stat.label} delay={i * 100} className="px-4 first:pl-0 last:pr-0">
-                <p className="text-3xl font-extrabold text-blue-400 tracking-tight"><CountUp value={stat.value} /></p>
-                <p className="mt-1 text-sm text-zinc-400">{stat.label}</p>
+              <Reveal key={stat.label} delay={i * 100} className="px-2 sm:px-4 first:pl-0 last:pr-0">
+                <p className="text-2xl sm:text-3xl font-extrabold text-blue-400 tracking-tight"><CountUp value={stat.value} /></p>
+                <p className="mt-1 text-xs sm:text-sm text-zinc-400">{stat.label}</p>
               </Reveal>
             ))}
           </div>
@@ -314,7 +314,7 @@ export default function Home() {
 
         {/* ── About ── */}
         <section className="bg-zinc-900 border-y border-zinc-800">
-          <div className="mx-auto max-w-5xl px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="mx-auto max-w-5xl px-6 py-16 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
             <Reveal className="rounded-2xl overflow-hidden relative" style={{ aspectRatio: "3/4" }} delay={0}>
               <Image
                 src="/john-tran.jpg"
@@ -355,7 +355,7 @@ export default function Home() {
               {tr.programs.heading}
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {tr.programs.items.map((s, i) => {
               const highlighted = "highlight" in s && s.highlight;
               const iconTheme = highlighted
@@ -364,13 +364,13 @@ export default function Home() {
               return (
                 <Reveal key={s.title} delay={i * 120}>
                 <div
-                  className={`rounded-2xl p-8 border transition-all duration-300 hover:-translate-y-2 ${
+                  className={`rounded-2xl p-6 sm:p-8 border transition-all duration-300 hover:-translate-y-2 ${
                     highlighted
                       ? "bg-blue-500 border-blue-500 shadow-xl shadow-blue-500/20 hover:shadow-2xl hover:shadow-blue-500/30"
                       : "bg-zinc-900 border-zinc-800 hover:border-zinc-600 hover:shadow-xl hover:shadow-zinc-950/60"
                   }`}
                 >
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl mb-5 ${iconTheme}`} aria-hidden="true">{s.icon}</div>
+                  <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center text-2xl sm:text-3xl mb-4 sm:mb-5 ${iconTheme}`} aria-hidden="true">{s.icon}</div>
                   <p className={`text-xs font-semibold uppercase tracking-widest mb-1 ${highlighted ? "text-zinc-800" : "text-blue-500"}`}>
                     {s.duration}
                   </p>
@@ -434,7 +434,7 @@ export default function Home() {
             </h2>
             <p className="text-zinc-400">{tr.apply.sub}</p>
           </div>
-          <div className="bg-zinc-900 rounded-2xl border border-zinc-800 shadow-xl p-8 sm:p-10">
+          <div className="bg-zinc-900 rounded-2xl border border-zinc-800 shadow-xl p-5 sm:p-8 md:p-10">
             <SubscribeForm />
           </div>
         </section>
