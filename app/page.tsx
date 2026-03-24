@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import SubscribeForm from "./components/SubscribeForm";
 import { useLang } from "./context/LanguageContext";
@@ -101,11 +102,12 @@ function LanguagePicker() {
 export default function Home() {
   const { lang } = useLang();
   const tr = t[lang];
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans">
       {/* ── Nav ── */}
-      <header className="sticky top-0 z-20 bg-zinc-950/80 backdrop-blur-sm border-b border-zinc-800">
+      <header className="sticky top-0 z-20 bg-zinc-950/95 backdrop-blur-sm border-b border-zinc-800">
         <nav
           aria-label="Main navigation"
           className="mx-auto max-w-5xl px-6 flex items-center justify-between h-14"
@@ -114,8 +116,10 @@ export default function Home() {
             {tr.nav.brand}{" "}
             <span className="text-amber-500">{tr.nav.brandAccent}</span>
           </span>
-          <div className="flex items-center gap-3 shrink-0 ml-4">
-            <SocialLinks className="hidden sm:flex" />
+
+          {/* Desktop right side */}
+          <div className="hidden sm:flex items-center gap-3 shrink-0 ml-4">
+            <SocialLinks />
             <LanguagePicker />
             <a
               href="#apply"
@@ -124,7 +128,37 @@ export default function Home() {
               {tr.nav.apply}
             </a>
           </div>
+
+          {/* Mobile burger */}
+          <button
+            type="button"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((o) => !o)}
+            className="sm:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 shrink-0 ml-4 rounded-lg hover:bg-zinc-800 transition-colors duration-200"
+          >
+            <span className={`block w-5 h-0.5 bg-zinc-300 transition-all duration-300 origin-center ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+            <span className={`block w-5 h-0.5 bg-zinc-300 transition-all duration-300 ${menuOpen ? "opacity-0 scale-x-0" : ""}`} />
+            <span className={`block w-5 h-0.5 bg-zinc-300 transition-all duration-300 origin-center ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          </button>
         </nav>
+
+        {/* Mobile menu panel */}
+        {menuOpen && (
+          <div className="sm:hidden border-t border-zinc-800 bg-zinc-950/95 px-6 py-5 flex flex-col gap-5">
+            <SocialLinks className="justify-center gap-6 [&_svg]:w-5 [&_svg]:h-5" />
+            <div className="flex items-center justify-between">
+              <LanguagePicker />
+              <a
+                href="#apply"
+                onClick={() => setMenuOpen(false)}
+                className="rounded-full bg-amber-500 px-5 py-2 text-sm font-semibold text-zinc-950 hover:bg-amber-400 transition-colors duration-200"
+              >
+                {tr.nav.apply}
+              </a>
+            </div>
+          </div>
+        )}
       </header>
 
       <main>
