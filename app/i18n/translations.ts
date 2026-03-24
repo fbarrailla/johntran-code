@@ -15,6 +15,12 @@ export const t = {
       cta: "Start your free discovery call",
       note: "100% free · No strings attached",
     },
+    stats: [
+      { value: "800k+", label: "Facebook followers" },
+      { value: "600k+", label: "Instagram followers" },
+      { value: "400k+", label: "TikTok followers" },
+      { value: "200+", label: "Clients coached" },
+    ],
     about: {
       eyebrow: "About John",
       heading: "Coaching from lived experience, not a textbook.",
@@ -150,6 +156,12 @@ export const t = {
       cta: "Bắt đầu cuộc gọi khám phá miễn phí",
       note: "100% miễn phí · Không ràng buộc",
     },
+    stats: [
+      { value: "800k+", label: "Người theo dõi Facebook" },
+      { value: "600k+", label: "Người theo dõi Instagram" },
+      { value: "400k+", label: "Người theo dõi TikTok" },
+      { value: "200+", label: "Khách hàng đã huấn luyện" },
+    ],
     about: {
       eyebrow: "Về John",
       heading: "Huấn luyện từ trải nghiệm thực tế, không phải sách giáo khoa.",

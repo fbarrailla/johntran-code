@@ -230,6 +230,18 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ── Stats ── */}
+        <section className="border-b border-zinc-800 bg-zinc-950">
+          <div className="mx-auto max-w-5xl px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {tr.stats.map((stat) => (
+              <div key={stat.label}>
+                <p className="text-3xl font-extrabold text-amber-400 tracking-tight">{stat.value}</p>
+                <p className="mt-1 text-sm text-zinc-400">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ── About ── */}
         <section className="bg-zinc-900 border-y border-zinc-800">
           <div className="mx-auto max-w-5xl px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
