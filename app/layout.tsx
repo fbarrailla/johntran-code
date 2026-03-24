@@ -3,6 +3,7 @@ import { Be_Vietnam_Pro } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { LanguageProvider } from "./context/LanguageContext";
+import { ThemeProvider } from "./context/ThemeContext";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
@@ -54,7 +55,7 @@ export default function RootLayout({
       className={`${beVietnamPro.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-zinc-950 text-zinc-100">
-        <LanguageProvider>{children}</LanguageProvider>
+        <ThemeProvider><LanguageProvider>{children}</LanguageProvider></ThemeProvider>
         {GA_ID && (
           <>
             <Script

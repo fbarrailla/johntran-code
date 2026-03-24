@@ -70,13 +70,13 @@ export default function SubscribeForm() {
   }
 
   const inputClass =
-    "w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2.5 text-zinc-100 placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors duration-200";
+    "w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2.5 text-zinc-100 placeholder-zinc-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-colors duration-200";
 
   if (state === "success") {
     return (
       <div className="text-center py-12 px-6">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/30 mb-4">
-          <svg className="w-8 h-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-500/10 border border-primary-500/30 mb-4">
+          <svg className="w-8 h-8 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path className="check-path" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
@@ -98,7 +98,7 @@ export default function SubscribeForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-zinc-300 mb-1" htmlFor="firstName">
-            {tr.firstName} <span className="text-blue-500">*</span>
+            {tr.firstName} <span className="text-primary-500">*</span>
           </label>
           <input id="firstName" name="firstName" type="text" autoComplete="given-name"
             required value={form.firstName} onChange={handleChange}
@@ -106,7 +106,7 @@ export default function SubscribeForm() {
         </div>
         <div>
           <label className="block text-sm font-medium text-zinc-300 mb-1" htmlFor="lastName">
-            {tr.lastName} <span className="text-blue-500">*</span>
+            {tr.lastName} <span className="text-primary-500">*</span>
           </label>
           <input id="lastName" name="lastName" type="text" autoComplete="family-name"
             required value={form.lastName} onChange={handleChange}
@@ -118,7 +118,7 @@ export default function SubscribeForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-zinc-300 mb-1" htmlFor="email">
-            {tr.email} <span className="text-blue-500">*</span>
+            {tr.email} <span className="text-primary-500">*</span>
           </label>
           <input id="email" name="email" type="email" autoComplete="email"
             required value={form.email} onChange={handleChange}
@@ -137,7 +137,7 @@ export default function SubscribeForm() {
       {/* Program */}
       <div>
         <label className="block text-sm font-medium text-zinc-300 mb-1" htmlFor="program">
-          {tr.program} <span className="text-blue-500">*</span>
+          {tr.program} <span className="text-primary-500">*</span>
         </label>
         <select id="program" name="program" required value={form.program}
           onChange={handleChange} className={inputClass}>
@@ -164,7 +164,7 @@ export default function SubscribeForm() {
       {/* Goal */}
       <div>
         <label className="block text-sm font-medium text-zinc-300 mb-1" htmlFor="goal">
-          {tr.goal} <span className="text-blue-500">*</span>
+          {tr.goal} <span className="text-primary-500">*</span>
         </label>
         <textarea id="goal" name="goal" required rows={3}
           value={form.goal} onChange={handleChange}
@@ -175,7 +175,7 @@ export default function SubscribeForm() {
       {/* Commitment level */}
       <div>
         <p className="text-sm font-medium text-zinc-300 mb-2">
-          {tr.commitment} <span className="text-blue-500">*</span>
+          {tr.commitment} <span className="text-primary-500">*</span>
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           {tr.commitmentOptions.map((o) => (
@@ -183,7 +183,7 @@ export default function SubscribeForm() {
               key={o.value}
               className={`flex flex-col items-center justify-center rounded-xl border px-3 py-3 text-center cursor-pointer transition-colors duration-200 min-h-11 ${
                 form.commitment === o.value
-                  ? "border-blue-500 bg-blue-500/10 text-blue-400"
+                  ? "border-primary-500 bg-primary-500/10 text-primary-400"
                   : "border-zinc-700 bg-zinc-800 text-zinc-400 hover:border-zinc-500"
               }`}
             >
@@ -202,12 +202,12 @@ export default function SubscribeForm() {
           <label className="text-sm font-medium text-zinc-300" htmlFor="investment">
             {tr.investment}
           </label>
-          <span className="text-base font-bold text-blue-400">${form.investment}</span>
+          <span className="text-base font-bold text-primary-400">${form.investment}</span>
         </div>
         <input id="investment" name="investment" type="range"
           min={tr.investmentMin} max={tr.investmentMax} step={50}
           value={form.investment} onChange={handleChange}
-          className="w-full h-2 rounded-full appearance-none cursor-pointer bg-zinc-700 accent-blue-500" />
+          className="w-full h-2 rounded-full appearance-none cursor-pointer bg-zinc-700 accent-primary-500" />
         <div className="flex justify-between text-xs text-zinc-500 mt-1">
           <span>${tr.investmentMin}</span>
           <span>${tr.investmentMax}</span>
@@ -217,7 +217,7 @@ export default function SubscribeForm() {
       {/* Contact method */}
       <div>
         <p className="text-sm font-medium text-zinc-300 mb-2">
-          {tr.contactMethod} <span className="text-blue-500">*</span>
+          {tr.contactMethod} <span className="text-primary-500">*</span>
         </p>
         <div className="grid grid-cols-3 gap-2">
           {tr.contactOptions.map((o) => (
@@ -225,7 +225,7 @@ export default function SubscribeForm() {
               key={o.value}
               className={`flex items-center justify-center rounded-xl border px-2 sm:px-3 py-3 cursor-pointer transition-colors duration-200 min-h-11 ${
                 form.contactMethod === o.value
-                  ? "border-blue-500 bg-blue-500/10 text-blue-400"
+                  ? "border-primary-500 bg-primary-500/10 text-primary-400"
                   : "border-zinc-700 bg-zinc-800 text-zinc-400 hover:border-zinc-500"
               }`}
             >
@@ -242,15 +242,15 @@ export default function SubscribeForm() {
       <div className="flex items-start gap-3">
         <input id="agreed" name="agreed" type="checkbox" required
           checked={form.agreed} onChange={handleChange}
-          className="mt-1 h-4 w-4 rounded border-zinc-600 bg-zinc-800 text-blue-500 focus:ring-blue-500" />
+          className="mt-1 h-4 w-4 rounded border-zinc-600 bg-zinc-800 text-primary-500 focus:ring-primary-500" />
         <label htmlFor="agreed" className="text-sm text-zinc-400">
           {tr.consent}{" "}
-          <span className="text-blue-500 underline cursor-pointer">{tr.consentLink}</span>.
+          <span className="text-primary-500 underline cursor-pointer">{tr.consentLink}</span>.
         </label>
       </div>
 
       <button type="submit" disabled={state === "submitting"}
-        className="w-full rounded-lg bg-blue-500 px-6 py-3.5 text-base font-semibold text-zinc-950 shadow-sm hover:bg-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 disabled:opacity-60 transition-colors duration-200">
+        className="w-full rounded-lg bg-primary-500 px-6 py-3.5 text-base font-semibold text-zinc-950 shadow-sm hover:bg-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900 disabled:opacity-60 transition-colors duration-200">
         {state === "submitting" ? tr.submitting : tr.submit}
       </button>
 

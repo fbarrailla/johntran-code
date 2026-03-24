@@ -3,11 +3,45 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary-400: var(--p-400);
+  --color-primary-500: var(--p-500);
+  --color-primary-600: var(--p-600);
+  --color-primary-950: var(--p-950);
 }
 
 :root {
   --background: #09090b;
   --foreground: #f4f4f5;
+  /* Blue (default) */
+  --p-400: #60a5fa;
+  --p-500: #3b82f6;
+  --p-600: #2563eb;
+  --p-950: #172554;
+  --glow-rgb: 59 130 246;
+}
+
+[data-theme="green"] {
+  --p-400: #4ade80;
+  --p-500: #22c55e;
+  --p-600: #16a34a;
+  --p-950: #052e16;
+  --glow-rgb: 34 197 94;
+}
+
+[data-theme="orange"] {
+  --p-400: #fb923c;
+  --p-500: #f97316;
+  --p-600: #ea580c;
+  --p-950: #431407;
+  --glow-rgb: 249 115 22;
+}
+
+[data-theme="silver"] {
+  --p-400: #94a3b8;
+  --p-500: #64748b;
+  --p-600: #475569;
+  --p-950: #0f172a;
+  --glow-rgb: 100 116 139;
 }
 
 html {
@@ -34,11 +68,16 @@ body {
 
 /* ── Hero badge pulse glow ── */
 @keyframes badge-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-  55%       { box-shadow: 0 0 0 8px rgba(59, 130, 246, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgb(var(--glow-rgb) / 0.4); }
+  55%       { box-shadow: 0 0 0 8px rgb(var(--glow-rgb) / 0); }
 }
 .badge-pulse {
   animation: badge-glow 3s ease-in-out infinite;
+}
+
+/* ── Stats radial glow ── */
+.stats-glow {
+  background: radial-gradient(ellipse 70% 60% at 50% 100%, rgb(var(--glow-rgb) / 0.1), transparent);
 }
 
 /* ── Animated checkmark draw ── */

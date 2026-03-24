@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import SubscribeForm from "./components/SubscribeForm";
 import { useLang } from "./context/LanguageContext";
+import { useTheme, type Theme } from "./context/ThemeContext";
 import { t } from "./i18n/translations";
 
 const SOCIAL_LINKS = [
@@ -113,10 +114,38 @@ function SocialLinks({ className = "" }: { className?: string }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={s.label}
-          className="text-zinc-500 hover:text-blue-500 transition-all duration-200 hover:scale-125 active:scale-90 inline-flex"
+          className="text-zinc-500 hover:text-primary-500 transition-all duration-200 hover:scale-125 active:scale-90 inline-flex"
         >
           {s.icon}
         </a>
+      ))}
+    </div>
+  );
+}
+
+const THEME_OPTIONS: { name: Theme; color: string; label: string }[] = [
+  { name: "blue",   color: "#3b82f6", label: "Blue"   },
+  { name: "green",  color: "#22c55e", label: "Green"  },
+  { name: "orange", color: "#f97316", label: "Orange" },
+  { name: "silver", color: "#64748b", label: "Silver" },
+];
+
+function ThemePicker() {
+  const { theme, setTheme } = useTheme();
+  return (
+    <div className="flex items-center gap-1.5" role="group" aria-label="Color theme">
+      {THEME_OPTIONS.map((t) => (
+        <button
+          key={t.name}
+          type="button"
+          onClick={() => setTheme(t.name)}
+          aria-label={`${t.label} theme`}
+          aria-pressed={theme === t.name}
+          className={`w-5 h-5 rounded-full transition-all duration-200 ring-offset-2 ring-offset-zinc-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
+            theme === t.name ? "ring-2 ring-white scale-110" : "opacity-50 hover:opacity-90 hover:scale-110"
+          }`}
+          style={{ backgroundColor: t.color }}
+        />
       ))}
     </div>
   );
@@ -135,7 +164,7 @@ function LanguagePicker() {
         onClick={() => setLang("en")}
         className={`px-3 py-2 rounded-full transition-colors duration-200 min-w-[40px] ${
           lang === "en"
-            ? "bg-blue-500 text-zinc-950"
+            ? "bg-primary-500 text-zinc-950"
             : "text-zinc-400 hover:text-zinc-100"
         }`}
       >
@@ -147,7 +176,7 @@ function LanguagePicker() {
         onClick={() => setLang("vn")}
         className={`px-3 py-2 rounded-full transition-colors duration-200 min-w-[40px] ${
           lang === "vn"
-            ? "bg-blue-500 text-zinc-950"
+            ? "bg-primary-500 text-zinc-950"
             : "text-zinc-400 hover:text-zinc-100"
         }`}
       >
@@ -207,16 +236,17 @@ export default function Home() {
         >
           <span className="font-bold tracking-tight text-zinc-100 whitespace-nowrap min-w-0 truncate">
             {tr.nav.brand}{" "}
-            <span className="text-blue-500">{tr.nav.brandAccent}</span>
+            <span className="text-primary-500">{tr.nav.brandAccent}</span>
           </span>
 
           {/* Desktop right side */}
           <div className="hidden sm:flex items-center gap-3 shrink-0 ml-4">
             <SocialLinks />
+            <ThemePicker />
             <LanguagePicker />
             <a
               href="#apply"
-              className="rounded-full bg-blue-500 px-4 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-blue-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 whitespace-nowrap"
+              className="rounded-full bg-primary-500 px-4 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-primary-400 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 whitespace-nowrap"
             >
               {tr.nav.apply}
             </a>
@@ -241,11 +271,14 @@ export default function Home() {
           <div className="sm:hidden border-t border-zinc-800 bg-zinc-950/95 px-6 py-5 flex flex-col gap-5">
             <SocialLinks className="justify-center gap-6 [&_svg]:w-5 [&_svg]:h-5" />
             <div className="flex items-center justify-between">
-              <LanguagePicker />
+              <div className="flex items-center gap-3">
+                <ThemePicker />
+                <LanguagePicker />
+              </div>
               <a
                 href="#apply"
                 onClick={() => setMenuOpen(false)}
-                className="rounded-full bg-blue-500 px-5 py-2 text-sm font-semibold text-zinc-950 hover:bg-blue-400 transition-colors duration-200"
+                className="rounded-full bg-primary-500 px-5 py-2 text-sm font-semibold text-zinc-950 hover:bg-primary-400 transition-colors duration-200"
               >
                 {tr.nav.apply}
               </a>
@@ -277,20 +310,20 @@ export default function Home() {
 
           <div className="relative z-10 mx-auto max-w-5xl px-6 py-16 sm:py-24 w-full">
             <div className="max-w-xl">
-              <p className="badge-pulse inline-block mb-5 rounded-full border border-blue-500/40 bg-blue-500/10 px-4 py-1 text-sm font-medium text-blue-400">
+              <p className="badge-pulse inline-block mb-5 rounded-full border border-primary-500/40 bg-primary-500/10 px-4 py-1 text-sm font-medium text-primary-400">
                 {tr.hero.tag}
               </p>
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight text-white mb-6">
                 {tr.hero.heading1}
                 <br />
-                <span className="text-blue-400">{tr.hero.heading2}</span>
+                <span className="text-primary-400">{tr.hero.heading2}</span>
               </h1>
               <p className="text-base sm:text-lg text-zinc-300 mb-10 leading-relaxed max-w-md">
                 {tr.hero.sub}
               </p>
               <a
                 href="#apply"
-                className="inline-block rounded-full bg-blue-500 px-8 py-4 text-base font-semibold text-zinc-950 shadow-lg shadow-blue-500/20 hover:bg-blue-400 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/30 active:translate-y-px active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+                className="inline-block rounded-full bg-primary-500 px-8 py-4 text-base font-semibold text-zinc-950 shadow-lg shadow-primary-500/20 hover:bg-primary-400 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary-500/30 active:translate-y-px active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
               >
                 {tr.hero.cta}
               </a>
@@ -301,11 +334,11 @@ export default function Home() {
 
         {/* ── Stats ── */}
         <section className="border-b border-zinc-800 bg-zinc-950 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_100%,rgba(59,130,246,0.1),transparent)] pointer-events-none" />
+          <div className="stats-glow absolute inset-0 pointer-events-none" />
           <div className="relative mx-auto max-w-5xl px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center divide-x divide-zinc-800/60">
             {tr.stats.map((stat, i) => (
               <Reveal key={stat.label} delay={i * 100} className="px-2 sm:px-4 first:pl-0 last:pr-0">
-                <p className="text-2xl sm:text-3xl font-extrabold text-blue-400 tracking-tight"><CountUp value={stat.value} /></p>
+                <p className="text-2xl sm:text-3xl font-extrabold text-primary-400 tracking-tight"><CountUp value={stat.value} /></p>
                 <p className="mt-1 text-xs sm:text-sm text-zinc-400">{stat.label}</p>
               </Reveal>
             ))}
@@ -325,7 +358,7 @@ export default function Home() {
               />
             </Reveal>
             <Reveal delay={150}>
-              <p className="text-sm font-semibold uppercase tracking-widest text-blue-500 mb-3">
+              <p className="text-sm font-semibold uppercase tracking-widest text-primary-500 mb-3">
                 {tr.about.eyebrow}
               </p>
               <h2 className="text-3xl font-bold text-zinc-100 mb-4">
@@ -336,7 +369,7 @@ export default function Home() {
               <ul className="space-y-3 text-sm text-zinc-300">
                 {tr.about.certs.map((cert) => (
                   <li key={cert} className="flex items-start gap-3">
-                    <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/15 ring-1 ring-blue-500/30 flex items-center justify-center text-blue-400 text-xs font-bold" aria-hidden="true">✓</span>
+                    <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-primary-500/15 ring-1 ring-primary-500/30 flex items-center justify-center text-primary-400 text-xs font-bold" aria-hidden="true">✓</span>
                     {cert}
                   </li>
                 ))}
@@ -348,7 +381,7 @@ export default function Home() {
         {/* ── Programs ── */}
         <section className="mx-auto max-w-5xl px-6 py-20">
           <div className="text-center mb-12">
-            <p className="text-sm font-semibold uppercase tracking-widest text-blue-500 mb-2">
+            <p className="text-sm font-semibold uppercase tracking-widest text-primary-500 mb-2">
               {tr.programs.eyebrow}
             </p>
             <h2 className="text-3xl font-bold text-zinc-100">
@@ -366,12 +399,12 @@ export default function Home() {
                 <div
                   className={`rounded-2xl p-6 sm:p-8 border transition-all duration-300 hover:-translate-y-2 ${
                     highlighted
-                      ? "bg-blue-500 border-blue-500 shadow-xl shadow-blue-500/20 hover:shadow-2xl hover:shadow-blue-500/30"
+                      ? "bg-primary-500 border-primary-500 shadow-xl shadow-primary-500/20 hover:shadow-2xl hover:shadow-primary-500/30"
                       : "bg-zinc-900 border-zinc-800 hover:border-zinc-600 hover:shadow-xl hover:shadow-zinc-950/60"
                   }`}
                 >
                   <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center text-2xl sm:text-3xl mb-4 sm:mb-5 ${iconTheme}`} aria-hidden="true">{s.icon}</div>
-                  <p className={`text-xs font-semibold uppercase tracking-widest mb-1 ${highlighted ? "text-zinc-800" : "text-blue-500"}`}>
+                  <p className={`text-xs font-semibold uppercase tracking-widest mb-1 ${highlighted ? "text-zinc-800" : "text-primary-500"}`}>
                     {s.duration}
                   </p>
                   <h3 className={`text-xl font-bold mb-3 ${highlighted ? "text-zinc-950" : "text-zinc-100"}`}>
@@ -395,16 +428,16 @@ export default function Home() {
         {/* ── Testimonials ── */}
         <section className="bg-zinc-900 border-y border-zinc-800">
           <div className="mx-auto max-w-5xl px-6 py-20">
-            <p className="text-center text-sm font-semibold uppercase tracking-widest text-blue-500 mb-12">
+            <p className="text-center text-sm font-semibold uppercase tracking-widest text-primary-500 mb-12">
               {tr.testimonials.eyebrow}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {tr.testimonials.items.map((item, i) => (
                 <Reveal key={item.name} delay={i * 120}>
                 <figure
-                  className="rounded-2xl bg-zinc-950 p-8 border border-zinc-800 border-t-2 border-t-blue-500/50 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-zinc-950/60"
+                  className="rounded-2xl bg-zinc-950 p-8 border border-zinc-800 border-t-2 border-t-primary-500/50 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-zinc-950/60"
                 >
-                  <svg className="w-8 h-8 text-blue-500/40 mb-4 flex-shrink-0" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                  <svg className="w-8 h-8 text-primary-500/40 mb-4 flex-shrink-0" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
                     <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
                   </svg>
                   <blockquote className="flex-1">
@@ -426,7 +459,7 @@ export default function Home() {
         {/* ── Application form ── */}
         <section id="apply" className="mx-auto max-w-2xl px-6 py-24 scroll-mt-16">
           <div className="text-center mb-10">
-            <p className="text-sm font-semibold uppercase tracking-widest text-blue-500 mb-2">
+            <p className="text-sm font-semibold uppercase tracking-widest text-primary-500 mb-2">
               {tr.apply.eyebrow}
             </p>
             <h2 className="text-3xl font-bold text-zinc-100 mb-3">
@@ -453,7 +486,7 @@ export default function Home() {
               href={tr.footer.madeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-blue-500 transition-colors duration-200"
+              className="text-zinc-400 hover:text-primary-500 transition-colors duration-200"
             >
               {tr.footer.madeAuthor}
             </a>
