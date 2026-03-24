@@ -30,6 +30,7 @@ export const t = {
         "Certified Life & Performance Coach (ICF)",
         "Precision Nutrition Level 2",
         "Mindfulness-Based Stress Reduction (MBSR)",
+        "Studying Health & Prevention — Deutsche Hochschule (Germany)",
       ],
     },
     programs: {
@@ -171,6 +172,7 @@ export const t = {
         "Huấn luyện viên Cuộc sống & Hiệu suất được chứng nhận (ICF)",
         "Dinh dưỡng Chính xác Cấp độ 2",
         "Giảm căng thẳng dựa trên Chánh niệm (MBSR)",
+        "Đang học Sức khỏe & Phòng bệnh — Deutsche Hochschule (Đức)",
       ],
     },
     programs: {
