@@ -24,6 +24,18 @@ const BOT_PROMPTS: Record<Step, string> = {
   done:       "Thanks for your information, I will contact you in the next 48h. Have a good day! 🙏",
 };
 
+// Typing delay in ms — varies by message length for a natural feel
+const TYPING_DELAY: Record<Step, number> = {
+  mood:       900,
+  name:       800,
+  email:      750,
+  goal:       850,
+  commitment: 800,
+  investment: 950,
+  phone:      1000,
+  done:       1200,
+};
+
 const COMMITMENT_OPTIONS = ["Exploring", "Ready to start", "Fully committed"];
 
 export default function Chatbot() {
@@ -33,32 +45,36 @@ export default function Chatbot() {
   const [step, setStep] = useState<Step>("mood");
   const [input, setInput] = useState("");
   const [data, setData] = useState<Record<string, string>>({});
-  const [sending, setSending] = useState(false);
+  const [typing, setTyping] = useState(false);
   const [showNotif, setShowNotif] = useState(true);
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Scroll to bottom on new messages
+  // Scroll to bottom whenever messages change or typing indicator appears
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, typing]);
 
-  // Focus input when chat opens
+  // Focus input when step changes and chat is open
   useEffect(() => {
-    if (open && step !== "done" && step !== "commitment") {
-      setTimeout(() => inputRef.current?.focus(), 100);
+    if (open && !typing && step !== "done" && step !== "commitment") {
+      setTimeout(() => inputRef.current?.focus(), 80);
     }
-  }, [open, step]);
+  }, [open, step, typing]);
+
+  function showBotMessage(s: Step) {
+    setTyping(true);
+    setTimeout(() => {
+      setTyping(false);
+      setMessages((prev) => [...prev, { from: "bot", text: BOT_PROMPTS[s] }]);
+    }, TYPING_DELAY[s]);
+  }
 
   function startChat() {
     setStarted(true);
     setShowNotif(false);
-    addBotMessage("mood");
-  }
-
-  function addBotMessage(s: Step) {
-    setMessages((prev) => [...prev, { from: "bot", text: BOT_PROMPTS[s] }]);
+    showBotMessage("mood");
   }
 
   function handleOpen() {
@@ -70,10 +86,9 @@ export default function Chatbot() {
   }
 
   function handleUserInput(value: string) {
-    if (!value.trim()) return;
+    if (!value.trim() || typing) return;
 
-    const userMsg: Message = { from: "user", text: value };
-    setMessages((prev) => [...prev, userMsg]);
+    setMessages((prev) => [...prev, { from: "user", text: value }]);
     setInput("");
 
     const newData = { ...data, [step]: value };
@@ -82,25 +97,22 @@ export default function Chatbot() {
     const nextIndex = STEP_ORDER.indexOf(step) + 1;
     const nextStep = STEP_ORDER[nextIndex] as Step;
 
+    setStep(nextStep);
+
     if (nextStep === "done") {
       submitData(newData);
     }
 
-    setTimeout(() => {
-      setStep(nextStep);
-      addBotMessage(nextStep);
-    }, 400);
+    showBotMessage(nextStep);
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const currentStep = step;
-    if (currentStep === "done" || !input.trim()) return;
+    if (step === "done" || !input.trim()) return;
     handleUserInput(input.trim());
   }
 
   async function submitData(collected: Record<string, string>) {
-    setSending(true);
     try {
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
@@ -124,8 +136,6 @@ export default function Chatbot() {
       );
     } catch {
       // Silent fail — user already got the thank-you message
-    } finally {
-      setSending(false);
     }
   }
 
@@ -143,11 +153,12 @@ export default function Chatbot() {
     step === "phone"      ? "+1 555 000 0000" :
     "Type your answer...";
 
+  const inputDisabled = typing || step === "done";
+
   return (
     <>
       {/* Floating button */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
-        {/* Notification bubble */}
         {showNotif && !open && (
           <div className="bg-zinc-800 border border-zinc-700 text-zinc-200 text-sm px-4 py-2 rounded-2xl rounded-br-sm shadow-lg max-w-[220px] animate-fade-in">
             Got questions? Chat with John! 💬
@@ -166,15 +177,8 @@ export default function Chatbot() {
               </svg>
             </span>
           ) : (
-            <Image
-              src="/john_bw.jpg"
-              alt="Chat with John Tran"
-              fill
-              className="object-cover"
-              sizes="56px"
-            />
+            <Image src="/john_bw.jpg" alt="Chat with John Tran" fill className="object-cover" sizes="56px" />
           )}
-          {/* Online dot */}
           {!open && (
             <span className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-zinc-950" />
           )}
@@ -197,7 +201,9 @@ export default function Chatbot() {
           </div>
           <div className="min-w-0">
             <p className="text-sm font-semibold text-zinc-100 leading-none">John Tran</p>
-            <p className="text-xs text-green-400 mt-0.5">Online · Life Coach</p>
+            <p className="text-xs text-green-400 mt-0.5">
+              {typing ? "typing…" : "Online · Life Coach"}
+            </p>
           </div>
           <button
             onClick={() => setOpen(false)}
@@ -233,20 +239,23 @@ export default function Chatbot() {
               </div>
             </div>
           ))}
-          {sending && (
-            <div className="flex items-center gap-2">
-              <div className="relative w-7 h-7 rounded-full overflow-hidden border border-primary-500/30 shrink-0">
+
+          {/* Typing indicator */}
+          {typing && (
+            <div className="flex items-end gap-2">
+              <div className="relative w-7 h-7 rounded-full overflow-hidden border border-primary-500/30 shrink-0 mb-0.5">
                 <Image src="/john_bw.jpg" alt="John" fill className="object-cover" sizes="28px" />
               </div>
-              <div className="bg-zinc-800 rounded-2xl rounded-bl-sm px-4 py-2.5">
-                <span className="flex gap-1">
-                  <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                  <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                  <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+              <div className="bg-zinc-800 rounded-2xl rounded-bl-sm px-4 py-3">
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                  <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce" style={{ animationDelay: "180ms" }} />
+                  <span className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce" style={{ animationDelay: "360ms" }} />
                 </span>
               </div>
             </div>
           )}
+
           <div ref={bottomRef} />
         </div>
 
@@ -259,7 +268,8 @@ export default function Chatbot() {
                   <button
                     key={opt}
                     onClick={() => handleUserInput(opt)}
-                    className="w-full rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-2 text-sm text-zinc-200 text-left hover:border-primary-500 hover:bg-primary-500/10 hover:text-primary-400 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50"
+                    disabled={inputDisabled}
+                    className="w-full rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-2 text-sm text-zinc-200 text-left hover:border-primary-500 hover:bg-primary-500/10 hover:text-primary-400 disabled:opacity-40 disabled:pointer-events-none transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50"
                   >
                     {opt}
                   </button>
@@ -272,12 +282,13 @@ export default function Chatbot() {
                   type={inputType}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder={inputPlaceholder}
-                  className="flex-1 min-w-0 rounded-xl border border-zinc-700 bg-zinc-800 px-3.5 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-colors duration-150"
+                  placeholder={typing ? "John is typing…" : inputPlaceholder}
+                  disabled={inputDisabled}
+                  className="flex-1 min-w-0 rounded-xl border border-zinc-700 bg-zinc-800 px-3.5 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:opacity-50 transition-colors duration-150"
                 />
                 <button
                   type="submit"
-                  disabled={!input.trim()}
+                  disabled={!input.trim() || inputDisabled}
                   aria-label="Send"
                   className="shrink-0 w-9 h-9 flex items-center justify-center rounded-xl bg-primary-500 text-zinc-950 hover:bg-primary-400 disabled:opacity-40 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400"
                 >
