@@ -24,16 +24,31 @@ const BOT_PROMPTS: Record<Step, string> = {
   done:       "Thanks for your information, I will contact you in the next 48h. Have a good day! 🙏",
 };
 
-// Typing delay in ms — varies by message length for a natural feel
+// Typing delay in ms before each bot message
 const TYPING_DELAY: Record<Step, number> = {
-  mood:       900,
-  name:       800,
-  email:      750,
-  goal:       850,
-  commitment: 800,
-  investment: 950,
-  phone:      1000,
-  done:       1200,
+  mood:       2900,
+  name:       2800,
+  email:      2750,
+  goal:       2850,
+  commitment: 2800,
+  investment: 2950,
+  phone:      3000,
+  done:       3200,
+};
+
+// Short acknowledgment delay before the "Thanks" message
+const THANKS_DELAY = 800;
+
+// Acknowledgment messages — vary by step index for a natural feel
+const THANKS: Record<Step, string> = {
+  mood:       "Glad to hear that! 😊",
+  name:       "Nice to meet you!",
+  email:      "Got it, thanks!",
+  goal:       "That's a great goal!",
+  commitment: "Love that energy! 💪",
+  investment: "Perfect, thank you!",
+  phone:      "Thanks for sharing!",
+  done:       "",
 };
 
 const COMMITMENT_OPTIONS = ["Exploring", "Ready to start", "Fully committed"];
@@ -88,13 +103,14 @@ export default function Chatbot() {
   function handleUserInput(value: string) {
     if (!value.trim() || typing) return;
 
+    const currentStep = step;
     setMessages((prev) => [...prev, { from: "user", text: value }]);
     setInput("");
 
-    const newData = { ...data, [step]: value };
+    const newData = { ...data, [currentStep]: value };
     setData(newData);
 
-    const nextIndex = STEP_ORDER.indexOf(step) + 1;
+    const nextIndex = STEP_ORDER.indexOf(currentStep) + 1;
     const nextStep = STEP_ORDER[nextIndex] as Step;
 
     setStep(nextStep);
@@ -103,7 +119,19 @@ export default function Chatbot() {
       submitData(newData);
     }
 
-    showBotMessage(nextStep);
+    // Show a quick "Thanks" acknowledgment, then the next question
+    const thanks = THANKS[currentStep];
+    if (thanks) {
+      setTyping(true);
+      setTimeout(() => {
+        setTyping(false);
+        setMessages((prev) => [...prev, { from: "bot", text: thanks }]);
+        // Then show typing for the next question
+        setTimeout(() => showBotMessage(nextStep), 400);
+      }, THANKS_DELAY);
+    } else {
+      showBotMessage(nextStep);
+    }
   }
 
   function handleSubmit(e: React.FormEvent) {
