@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback, memo } from "react";
 import Image from "next/image";
 import SubscribeForm from "./components/SubscribeForm";
+import Chatbot from "./components/Chatbot";
 import { useLang } from "./context/LanguageContext";
 import { useTheme, type Theme } from "./context/ThemeContext";
 import { t } from "./i18n/translations";
@@ -502,6 +503,9 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      {/* ── Chatbot ── */}
+      <Chatbot />
 
       {/* ── Footer ── */}
       <footer className="border-t border-zinc-800 bg-zinc-900">
