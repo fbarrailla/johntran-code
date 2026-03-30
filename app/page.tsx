@@ -409,6 +409,37 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ── Brand Partnerships ── */}
+        <section className="mx-auto max-w-5xl px-6 py-20">
+          <div className="text-center mb-12">
+            <p className="text-sm font-semibold uppercase tracking-widest text-primary-400 mb-2">
+              {tr.brands.eyebrow}
+            </p>
+            <h2 className="text-3xl font-bold text-zinc-100">
+              {tr.brands.heading}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {tr.brands.categories.map((cat, ci) => (
+              <Reveal key={cat.title} delay={ci * 100}>
+                <div>
+                  <h3 className="text-xs font-semibold uppercase tracking-widest text-primary-400 mb-4 pb-2 border-b border-zinc-800">
+                    {cat.title}
+                  </h3>
+                  <ul className="space-y-3">
+                    {cat.items.map((item) => (
+                      <li key={item.name} className="rounded-xl bg-zinc-900 border border-zinc-800 p-4 transition-all duration-200 hover:border-zinc-600">
+                        <p className="font-semibold text-zinc-100 text-sm">{item.name}</p>
+                        <p className="text-xs text-zinc-500 mt-1 leading-relaxed">{item.desc}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
         {/* ── Programs ── */}
         <section className="mx-auto max-w-5xl px-6 py-20">
           <div className="text-center mb-12">
@@ -453,6 +484,45 @@ export default function Home() {
                 </Reveal>
               );
             })}
+          </div>
+        </section>
+
+        {/* ── Experience ── */}
+        <section className="bg-zinc-900 border-y border-zinc-800">
+          <div className="mx-auto max-w-5xl px-6 py-20">
+            <div className="text-center mb-12">
+              <p className="text-sm font-semibold uppercase tracking-widest text-primary-400 mb-2">
+                {tr.experience.eyebrow}
+              </p>
+              <h2 className="text-3xl font-bold text-zinc-100">
+                {tr.experience.heading}
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {tr.experience.items.map((item, i) => (
+                <Reveal key={item.role} delay={i * 120}>
+                  <div className="rounded-2xl bg-zinc-950 border border-zinc-800 p-6 h-full border-t-2 border-t-primary-500/40">
+                    <h3 className="font-bold text-zinc-100 mb-3">{item.role}</h3>
+                    <p className="text-sm text-zinc-400 leading-relaxed">{item.desc}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal delay={150}>
+              <div className="rounded-2xl bg-zinc-950 border border-zinc-800 p-6 md:p-8">
+                <h3 className="text-sm font-semibold uppercase tracking-widest text-primary-400 mb-5">
+                  {tr.experience.competenciesTitle}
+                </h3>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {tr.experience.competencies.map((comp) => (
+                    <li key={comp} className="flex items-start gap-3 text-sm text-zinc-300">
+                      <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-primary-500/15 ring-1 ring-primary-500/30 flex items-center justify-center text-primary-400 text-xs font-bold" aria-hidden="true">✓</span>
+                      {comp}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
           </div>
         </section>
 

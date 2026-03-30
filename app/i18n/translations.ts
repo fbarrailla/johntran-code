@@ -16,21 +16,77 @@ export const t = {
       note: "100% free · No strings attached",
     },
     stats: [
-      { value: "800k+", label: "Facebook followers" },
-      { value: "600k+", label: "Instagram followers" },
-      { value: "400k+", label: "TikTok followers" },
-      { value: "200+", label: "Clients coached" },
+      { value: "1.7M+", label: "Total followers" },
+      { value: "750K+", label: "Facebook followers" },
+      { value: "600K+", label: "Instagram followers" },
+      { value: "311K+", label: "TikTok followers" },
     ],
     about: {
       eyebrow: "About John",
-      heading: "Coaching from lived experience, not a textbook.",
-      p1: "After burning out at 28, losing 20 kg, and rebuilding his life from the ground up, John became obsessed with one question: what actually makes change stick?",
-      p2: "Over the past 6 years he's worked with 200+ clients across four continents — from stressed-out founders to new parents to elite athletes in transition. His approach blends neuroscience-backed habit design, somatic awareness, and radical honesty.",
+      heading: "Content Creator, Master Coach & Influencer.",
+      p1: "Raised in Germany, John is a Content Creator, Master Coach, and Influencer with a combined following of over 1.7 million across major social media platforms. He holds a Master's Degree in Health and Prevention, which deeply informs his holistic approach to wellness.",
+      p2: "With a strong professional background in managing health centers and pharmaceutical companies — and experience as a fashion model — John seamlessly blends the worlds of health, \"Quiet Luxury,\" and high-end menswear. He specialises in community building, premium lifestyle content, and strategic brand partnerships.",
       certs: [
-        "Certified Life & Performance Coach (ICF)",
-        "Precision Nutrition Level 2",
-        "Mindfulness-Based Stress Reduction (MBSR)",
-        "Studying Health & Prevention — Deutsche Hochschule (Germany)",
+        "Master's Degree in Health and Prevention",
+        "Certified Master Coach & Personal Coach",
+        "Healthcare & Pharmaceutical Management",
+        "Fashion Model & Luxury Lifestyle Expert",
+      ],
+    },
+    brands: {
+      eyebrow: "Partnerships",
+      heading: "Brand Collaborations",
+      categories: [
+        {
+          title: "Fashion & Lifestyle",
+          items: [
+            { name: "Antonio De Torres (ADT)", desc: "Long-term collaborative campaign in development" },
+            { name: "Dominique Saint Paul", desc: "Premium handcrafted leather goods & classic menswear" },
+            { name: "Mon Amie", desc: "Media partnership with established fashion brand" },
+            { name: "Degrey", desc: "Modern apparel and lifestyle content" },
+          ],
+        },
+        {
+          title: "Health, Fitness & Beauty",
+          items: [
+            { name: "Fina Beauty Clinic", desc: "Berlin & Ho Chi Minh City — premium aesthetics & wellness" },
+            { name: "Empire Fitness Gym", desc: "High-level fitness, bodybuilding & training" },
+            { name: "Vinabeast Fitness Gym", desc: "Strength training & dedicated fitness lifestyle" },
+          ],
+        },
+        {
+          title: "Media & Content",
+          items: [
+            { name: "TV Show with Chef Huy", desc: "Fitness and nutrition TV show concept in development" },
+            { name: "\"Blacki\" Project", desc: "In-depth content strategy on modern relationship dynamics" },
+          ],
+        },
+      ],
+    },
+    experience: {
+      eyebrow: "Background",
+      heading: "Professional Experience",
+      items: [
+        {
+          role: "Content Creator & Influencer",
+          desc: "Producing high-quality lifestyle and luxury fashion content — including high-end watches (Patek Philippe, Omega, Rolex) and fitness — while engaging and growing a 1.7M+ community across Instagram, Facebook, and TikTok.",
+        },
+        {
+          role: "Healthcare Management & Coaching",
+          desc: "Successfully managed operations for health centers and pharmaceutical companies. As a Certified Master Coach, provides high-level coaching in fitness, nutrition, and holistic health using advanced prevention methodologies.",
+        },
+        {
+          role: "Fashion Modeling",
+          desc: "Professional modeling experience developed a refined eye for aesthetics, styling, and personal branding — now central to the \"Quiet Luxury\" content identity and high-end menswear focus.",
+        },
+      ],
+      competenciesTitle: "Core Competencies",
+      competencies: [
+        "Health & Wellness: Prevention, fitness coaching, diet strategy",
+        "Corporate Leadership: Healthcare and pharmaceutical management",
+        "Content & Styling: \"Quiet Luxury\" aesthetic, premium menswear, art direction",
+        "Brand Partnerships: Negotiation, proposal development, strategic collaboration",
+        "Languages: German (Native), Vietnamese (Native), English (Fluent)",
       ],
     },
     programs: {
@@ -158,21 +214,77 @@ export const t = {
       note: "100% miễn phí · Không ràng buộc",
     },
     stats: [
-      { value: "800k+", label: "Người theo dõi Facebook" },
-      { value: "600k+", label: "Người theo dõi Instagram" },
-      { value: "400k+", label: "Người theo dõi TikTok" },
-      { value: "200+", label: "Khách hàng đã huấn luyện" },
+      { value: "1.7M+", label: "Tổng người theo dõi" },
+      { value: "750K+", label: "Người theo dõi Facebook" },
+      { value: "600K+", label: "Người theo dõi Instagram" },
+      { value: "311K+", label: "Người theo dõi TikTok" },
     ],
     about: {
       eyebrow: "Về John",
-      heading: "Huấn luyện từ trải nghiệm thực tế, không phải sách giáo khoa.",
-      p1: "Sau khi kiệt sức ở tuổi 28, giảm 20 kg và xây dựng lại cuộc sống từ đầu, John trở nên ám ảnh với một câu hỏi: điều gì thực sự làm cho sự thay đổi bền vững?",
-      p2: "Trong 6 năm qua, anh đã làm việc với hơn 200 khách hàng trên bốn châu lục — từ những nhà sáng lập căng thẳng đến các bậc cha mẹ mới và vận động viên đỉnh cao trong giai đoạn chuyển tiếp. Phương pháp của anh kết hợp thiết kế thói quen dựa trên khoa học thần kinh, nhận thức cơ thể và sự thành thật triệt để.",
+      heading: "Nhà sáng tạo nội dung, Master Coach & Influencer.",
+      p1: "Lớn lên tại Đức, John là một Content Creator, Master Coach và Influencer với hơn 1,7 triệu người theo dõi trên các nền tảng mạng xã hội lớn. Anh có bằng Thạc sĩ về Sức khỏe và Phòng bệnh, là nền tảng cho cách tiếp cận toàn diện về sức khỏe của mình.",
+      p2: "Với nền tảng chuyên nghiệp vững chắc trong quản lý trung tâm y tế và công ty dược phẩm — cùng kinh nghiệm làm người mẫu thời trang — John kết hợp liền mạch giữa sức khỏe, phong cách \"Quiet Luxury\" và thời trang nam cao cấp.",
       certs: [
-        "Huấn luyện viên Cuộc sống & Hiệu suất được chứng nhận (ICF)",
-        "Dinh dưỡng Chính xác Cấp độ 2",
-        "Giảm căng thẳng dựa trên Chánh niệm (MBSR)",
-        "Đang học Sức khỏe & Phòng bệnh — Deutsche Hochschule (Đức)",
+        "Thạc sĩ Sức khỏe và Phòng bệnh",
+        "Chứng chỉ Master Coach & Personal Coach",
+        "Quản lý Y tế & Dược phẩm",
+        "Người mẫu thời trang & Chuyên gia phong cách sống cao cấp",
+      ],
+    },
+    brands: {
+      eyebrow: "Hợp tác",
+      heading: "Thương hiệu & Đối tác",
+      categories: [
+        {
+          title: "Thời trang & Phong cách sống",
+          items: [
+            { name: "Antonio De Torres (ADT)", desc: "Chiến dịch hợp tác dài hạn đang được phát triển" },
+            { name: "Dominique Saint Paul", desc: "Đồ da thủ công cao cấp & phong cách menswear cổ điển" },
+            { name: "Mon Amie", desc: "Dự án truyền thông với thương hiệu thời trang lâu đời" },
+            { name: "Degrey", desc: "Nội dung thời trang và phong cách sống hiện đại" },
+          ],
+        },
+        {
+          title: "Sức khỏe, Thể hình & Làm đẹp",
+          items: [
+            { name: "Fina Beauty Clinic", desc: "Berlin & TP.HCM — thẩm mỹ cao cấp & wellness" },
+            { name: "Empire Fitness Gym", desc: "Fitness cao cấp, thể hình & môi trường tập luyện chuyên nghiệp" },
+            { name: "Vinabeast Fitness Gym", desc: "Luyện sức mạnh & lối sống fitness bền vững" },
+          ],
+        },
+        {
+          title: "Truyền thông & Nội dung",
+          items: [
+            { name: "TV Show cùng Chef Huy", desc: "Concept chương trình truyền hình kết hợp fitness và dinh dưỡng" },
+            { name: "Dự án \"Blacki\"", desc: "Chiến lược nội dung về mối quan hệ nam nữ hiện đại" },
+          ],
+        },
+      ],
+    },
+    experience: {
+      eyebrow: "Kinh nghiệm",
+      heading: "Hành trình chuyên nghiệp",
+      items: [
+        {
+          role: "Content Creator & Influencer",
+          desc: "Sản xuất nội dung chất lượng cao về phong cách sống và thời trang xa xỉ — bao gồm đồng hồ cao cấp (Patek Philippe, Omega, Rolex) và fitness — xây dựng cộng đồng 1,7 triệu người trên Instagram, Facebook và TikTok.",
+        },
+        {
+          role: "Quản lý Y tế & Huấn luyện",
+          desc: "Quản lý vận hành trung tâm y tế và công ty dược phẩm. Với tư cách Master Coach được chứng nhận, cung cấp huấn luyện chuyên sâu về thể hình, dinh dưỡng và sức khỏe toàn diện.",
+        },
+        {
+          role: "Người mẫu thời trang",
+          desc: "Kinh nghiệm làm người mẫu chuyên nghiệp giúp phát triển con mắt thẩm mỹ tinh tế về styling và personal branding — nền tảng của phong cách nội dung \"Quiet Luxury\" ngày nay.",
+        },
+      ],
+      competenciesTitle: "Năng lực cốt lõi",
+      competencies: [
+        "Sức khỏe & Wellness: Phòng bệnh, coaching thể hình, chiến lược dinh dưỡng",
+        "Lãnh đạo doanh nghiệp: Quản lý y tế và dược phẩm",
+        "Nội dung & Styling: Phong cách \"Quiet Luxury\", menswear cao cấp, art direction",
+        "Hợp tác thương hiệu: Đàm phán, phát triển đề xuất, hợp tác chiến lược",
+        "Ngôn ngữ: Tiếng Đức (bản ngữ), Tiếng Việt (bản ngữ), Tiếng Anh (thành thạo)",
       ],
     },
     programs: {
