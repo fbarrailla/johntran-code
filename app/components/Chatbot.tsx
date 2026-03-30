@@ -208,7 +208,7 @@ export default function Chatbot() {
             <Image src="/chatbot-avatar.jpeg" alt="Chat with John Tran" fill className="object-cover" sizes="56px" />
           )}
           {!open && (
-            <span className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-zinc-950" />
+            <span className="absolute top-0.5 right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-zinc-950" />
           )}
         </button>
       </div>
