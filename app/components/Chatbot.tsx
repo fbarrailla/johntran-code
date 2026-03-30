@@ -205,7 +205,7 @@ export default function Chatbot() {
               </svg>
             </span>
           ) : (
-            <Image src="/john_bw.jpg" alt="Chat with John Tran" fill className="object-cover" sizes="56px" />
+            <Image src="/chatbot-avatar.jpeg" alt="Chat with John Tran" fill className="object-cover" sizes="56px" />
           )}
           {!open && (
             <span className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-zinc-950" />
@@ -225,7 +225,7 @@ export default function Chatbot() {
         {/* Header */}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-zinc-800 bg-zinc-900 shrink-0">
           <div className="relative w-9 h-9 rounded-full overflow-hidden border border-primary-500/40 shrink-0">
-            <Image src="/john_bw.jpg" alt="John Tran" fill className="object-cover" sizes="36px" />
+            <Image src="/chatbot-avatar.jpeg" alt="John Tran" fill className="object-cover" sizes="36px" />
           </div>
           <div className="min-w-0">
             <p className="text-sm font-semibold text-zinc-100 leading-none">John Tran</p>
@@ -253,7 +253,7 @@ export default function Chatbot() {
             >
               {msg.from === "bot" && (
                 <div className="relative w-7 h-7 rounded-full overflow-hidden border border-primary-500/30 shrink-0 mb-0.5">
-                  <Image src="/john_bw.jpg" alt="John" fill className="object-cover" sizes="28px" />
+                  <Image src="/chatbot-avatar.jpeg" alt="John" fill className="object-cover" sizes="28px" />
                 </div>
               )}
               <div
@@ -272,7 +272,7 @@ export default function Chatbot() {
           {typing && (
             <div className="flex items-end gap-2">
               <div className="relative w-7 h-7 rounded-full overflow-hidden border border-primary-500/30 shrink-0 mb-0.5">
-                <Image src="/john_bw.jpg" alt="John" fill className="object-cover" sizes="28px" />
+                <Image src="/chatbot-avatar.jpeg" alt="John" fill className="object-cover" sizes="28px" />
               </div>
               <div className="bg-zinc-800 rounded-2xl rounded-bl-sm px-4 py-3">
                 <span className="flex items-center gap-1">
