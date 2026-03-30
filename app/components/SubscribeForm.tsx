@@ -59,7 +59,7 @@ export default function SubscribeForm() {
           commitment: form.commitment,
           investment: `$${form.investment}/month`,
           contact_method: form.contactMethod,
-          to_email: "johntran-code@gmail.com",
+          to_email: "johntran.code@gmail.com",
         },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       );
