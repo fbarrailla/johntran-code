@@ -21,8 +21,8 @@ export default function NewsletterForm({ placeholder, submit, submitting, succes
     setStatus("loading");
     try {
       await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        "template_ircblvw",
+        "service_nop1bn9",
+        "template_tr5eo3d",
         { email },
         { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
       );
