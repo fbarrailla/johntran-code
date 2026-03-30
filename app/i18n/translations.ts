@@ -42,7 +42,6 @@ export const t = {
           items: [
             { name: "Antonio De Torres (ADT)", desc: "Long-term collaborative campaign in development" },
             { name: "Dominique Saint Paul", desc: "Premium handcrafted leather goods & classic menswear" },
-            { name: "Mon Amie", desc: "Media partnership with established fashion brand" },
             { name: "Degrey", desc: "Modern apparel and lifestyle content" },
           ],
         },
@@ -241,7 +240,6 @@ export const t = {
           items: [
             { name: "Antonio De Torres (ADT)", desc: "Chiến dịch hợp tác dài hạn đang được phát triển" },
             { name: "Dominique Saint Paul", desc: "Đồ da thủ công cao cấp & phong cách menswear cổ điển" },
-            { name: "Mon Amie", desc: "Dự án truyền thông với thương hiệu thời trang lâu đời" },
             { name: "Degrey", desc: "Nội dung thời trang và phong cách sống hiện đại" },
           ],
         },
