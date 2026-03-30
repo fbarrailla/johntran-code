@@ -193,24 +193,26 @@ export default function Chatbot() {
           </div>
         )}
 
-        <button
-          onClick={open ? () => setOpen(false) : handleOpen}
-          aria-label={open ? "Close chat" : "Open chat with John Tran"}
-          className="relative w-14 h-14 rounded-full shadow-xl border-2 border-primary-500 overflow-hidden hover:scale-105 transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
-        >
-          {open ? (
-            <span className="flex items-center justify-center w-full h-full bg-zinc-800 text-zinc-100">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </span>
-          ) : (
-            <Image src="/chatbot-avatar.jpeg" alt="Chat with John Tran" fill className="object-cover" sizes="56px" />
-          )}
+        <div className="relative">
+          <button
+            onClick={open ? () => setOpen(false) : handleOpen}
+            aria-label={open ? "Close chat" : "Open chat with John Tran"}
+            className="relative w-14 h-14 rounded-full shadow-xl border-2 border-primary-500 overflow-hidden hover:scale-105 transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+          >
+            {open ? (
+              <span className="flex items-center justify-center w-full h-full bg-zinc-800 text-zinc-100">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </span>
+            ) : (
+              <Image src="/chatbot-avatar.jpeg" alt="Chat with John Tran" fill className="object-cover" sizes="56px" />
+            )}
+          </button>
           {!open && (
-            <span className="absolute top-0.5 right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-zinc-950" />
+            <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-zinc-950" />
           )}
-        </button>
+        </div>
       </div>
 
       {/* Chat window */}
