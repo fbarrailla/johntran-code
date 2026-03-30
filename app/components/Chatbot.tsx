@@ -4,19 +4,20 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import emailjs from "@emailjs/browser";
 
-type Step = "mood" | "name" | "email" | "goal" | "commitment" | "investment" | "phone" | "done";
+type Step = "mood" | "name" | "email" | "newsletter" | "goal" | "commitment" | "investment" | "phone" | "done";
 
 interface Message {
   from: "bot" | "user";
   text: string;
 }
 
-const STEP_ORDER: Step[] = ["mood", "name", "email", "goal", "commitment", "investment", "phone", "done"];
+const STEP_ORDER: Step[] = ["mood", "name", "email", "newsletter", "goal", "commitment", "investment", "phone", "done"];
 
 const BOT_PROMPTS: Record<Step, string> = {
   mood:       "Hi, how are you doing? 👋",
   name:       "What is your name?",
   email:      "Please give me your email.",
+  newsletter: "Do you want to subscribe to my newsletter?",
   goal:       "What's your main goal right now?",
   commitment: "What's your commitment level?",
   investment: "How much can you invest in yourself each month?",
@@ -29,6 +30,7 @@ const TYPING_DELAY: Record<Step, number> = {
   mood:       2900,
   name:       2800,
   email:      2750,
+  newsletter: 2700,
   goal:       2850,
   commitment: 2800,
   investment: 2950,
@@ -44,6 +46,7 @@ const THANKS: Record<Step, string> = {
   mood:       "Glad to hear that! 😊",
   name:       "Nice to meet you!",
   email:      "Got it, thanks!",
+  newsletter: "",
   goal:       "That's a great goal!",
   commitment: "Love that energy! 💪",
   investment: "Perfect, thank you!",
@@ -119,6 +122,10 @@ export default function Chatbot() {
       submitData(newData);
     }
 
+    if (currentStep === "newsletter" && value === "Yes") {
+      submitNewsletter(newData.email || "");
+    }
+
     // Show a quick "Thanks" acknowledgment, then the next question
     const thanks = THANKS[currentStep];
     if (thanks) {
@@ -138,6 +145,19 @@ export default function Chatbot() {
     e.preventDefault();
     if (step === "done" || !input.trim()) return;
     handleUserInput(input.trim());
+  }
+
+  async function submitNewsletter(email: string) {
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        "template_ircblvw",
+        { email },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
+    } catch {
+      // Silent fail
+    }
   }
 
   async function submitData(collected: Record<string, string>) {
@@ -292,7 +312,20 @@ export default function Chatbot() {
         {/* Input area */}
         {step !== "done" && (
           <div className="shrink-0 border-t border-zinc-800 px-3 py-3 bg-zinc-900">
-            {step === "commitment" ? (
+            {step === "newsletter" ? (
+              <div className="flex gap-2">
+                {["Yes", "No"].map((opt) => (
+                  <button
+                    key={opt}
+                    onClick={() => handleUserInput(opt)}
+                    disabled={inputDisabled}
+                    className="flex-1 rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-2 text-sm text-zinc-200 hover:border-primary-500 hover:bg-primary-500/10 hover:text-primary-400 disabled:opacity-40 disabled:pointer-events-none transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50"
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            ) : step === "commitment" ? (
               <div className="flex flex-col gap-2">
                 {COMMITMENT_OPTIONS.map((opt) => (
                   <button
