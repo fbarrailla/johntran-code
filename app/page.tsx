@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback, memo } from "react";
 import Image from "next/image";
 import SubscribeForm from "./components/SubscribeForm";
+import NewsletterForm from "./components/NewsletterForm";
 import Chatbot from "./components/Chatbot";
 import { useLang } from "./context/LanguageContext";
 import { useTheme, type Theme } from "./context/ThemeContext";
@@ -586,6 +587,26 @@ export default function Home() {
                 </Reveal>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ── Newsletter ── */}
+        <section className="border-y border-zinc-800 bg-zinc-900">
+          <div className="mx-auto max-w-2xl px-6 py-16 text-center">
+            <p className="text-sm font-semibold uppercase tracking-widest text-primary-400 mb-2">
+              {tr.newsletter.eyebrow}
+            </p>
+            <h2 className="text-3xl font-bold text-zinc-100 mb-3">
+              {tr.newsletter.heading}
+            </h2>
+            <p className="text-zinc-400 mb-8">{tr.newsletter.sub}</p>
+            <NewsletterForm
+              placeholder={tr.newsletter.placeholder}
+              submit={tr.newsletter.submit}
+              submitting={tr.newsletter.submitting}
+              successMsg={tr.newsletter.successMsg}
+              errorMsg={tr.newsletter.errorMsg}
+            />
           </div>
         </section>
 

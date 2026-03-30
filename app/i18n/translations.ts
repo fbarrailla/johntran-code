@@ -141,6 +141,16 @@ export const t = {
         },
       ],
     },
+    newsletter: {
+      eyebrow: "Newsletter",
+      heading: "Stay in the loop.",
+      sub: "Get exclusive tips on lifestyle, fitness, and luxury content — straight to your inbox.",
+      placeholder: "your@email.com",
+      submit: "Subscribe",
+      submitting: "Subscribing…",
+      successMsg: "You're subscribed! Talk soon.",
+      errorMsg: "Something went wrong — please try again.",
+    },
     apply: {
       eyebrow: "Apply",
       heading: "Ready to start?",
@@ -338,6 +348,16 @@ export const t = {
           role: "Giám đốc sáng tạo",
         },
       ],
+    },
+    newsletter: {
+      eyebrow: "Bản tin",
+      heading: "Cập nhật mới nhất.",
+      sub: "Nhận các mẹo độc quyền về lối sống, thể hình và nội dung phong cách cao cấp — ngay trong hộp thư của bạn.",
+      placeholder: "email@cua.ban.com",
+      submit: "Đăng ký",
+      submitting: "Đang gửi…",
+      successMsg: "Đăng ký thành công! Hẹn gặp sớm.",
+      errorMsg: "Có lỗi xảy ra — vui lòng thử lại.",
     },
     apply: {
       eyebrow: "Đăng ký",
