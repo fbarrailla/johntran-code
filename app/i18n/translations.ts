@@ -69,7 +69,7 @@ export const t = {
       items: [
         {
           role: "Content Creator & Influencer",
-          desc: "Producing high-quality lifestyle and luxury fashion content — including high-end watches (Patek Philippe, Omega, Rolex) and fitness — while engaging and growing a 1.7M+ community across Instagram, Facebook, and TikTok.",
+          desc: "Producing high-quality lifestyle and luxury fashion content while engaging and growing a 1.7M+ community across Instagram, Facebook, and TikTok.",
         },
         {
           role: "Healthcare Management & Coaching",
@@ -267,7 +267,7 @@ export const t = {
       items: [
         {
           role: "Content Creator & Influencer",
-          desc: "Sản xuất nội dung chất lượng cao về phong cách sống và thời trang xa xỉ — bao gồm đồng hồ cao cấp (Patek Philippe, Omega, Rolex) và fitness — xây dựng cộng đồng 1,7 triệu người trên Instagram, Facebook và TikTok.",
+          desc: "Sản xuất nội dung chất lượng cao về phong cách sống và thời trang xa xỉ, xây dựng cộng đồng 1,7 triệu người trên Instagram, Facebook và TikTok.",
         },
         {
           role: "Quản lý Y tế & Huấn luyện",
