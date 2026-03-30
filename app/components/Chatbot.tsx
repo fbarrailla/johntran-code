@@ -154,7 +154,7 @@ export default function Chatbot() {
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         "template_ircblvw",
-        { email, to_email: "johntran.code@gmail.com" },
+        { email },
         { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
       );
     } catch {

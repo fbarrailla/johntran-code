@@ -23,7 +23,7 @@ export default function NewsletterForm({ placeholder, submit, submitting, succes
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         "template_ircblvw",
-        { email, to_email: "johntran.code@gmail.com" },
+        { email },
         { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
       );
       setStatus("success");
