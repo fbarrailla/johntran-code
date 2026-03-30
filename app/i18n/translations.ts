@@ -58,7 +58,6 @@ export const t = {
           title: "Media & Content",
           items: [
             { name: "TV Show with Chef Huy", desc: "Fitness and nutrition TV show concept in development" },
-            { name: "\"Blacki\" Project", desc: "In-depth content strategy on modern relationship dynamics" },
           ],
         },
       ],
@@ -256,7 +255,6 @@ export const t = {
           title: "Truyền thông & Nội dung",
           items: [
             { name: "TV Show cùng Chef Huy", desc: "Concept chương trình truyền hình kết hợp fitness và dinh dưỡng" },
-            { name: "Dự án \"Blacki\"", desc: "Chiến lược nội dung về mối quan hệ nam nữ hiện đại" },
           ],
         },
       ],
