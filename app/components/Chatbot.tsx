@@ -127,7 +127,9 @@ export default function Chatbot() {
     }
 
     // Show a quick "Thanks" acknowledgment, then the next question
-    const thanks = THANKS[currentStep];
+    const thanks = currentStep === "newsletter" && value === "Yes"
+      ? "Perfect 💯 You are subscribed."
+      : THANKS[currentStep];
     if (thanks) {
       setTyping(true);
       setTimeout(() => {
