@@ -58,6 +58,7 @@ export const t = {
           title: "Media & Content",
           items: [
             { name: "TV Show with Chef Huy", desc: "Fitness and nutrition TV show concept in development" },
+            { name: "The Amazing Race Vietnam", desc: "Adventurous reality show where pairs compete across Vietnam's most iconic landmarks, overcoming physical, mental, and life-skill challenges to race to the finish line." },
           ],
         },
       ],
@@ -255,6 +256,7 @@ export const t = {
           title: "Truyền thông & Nội dung",
           items: [
             { name: "TV Show cùng Chef Huy", desc: "Concept chương trình truyền hình kết hợp fitness và dinh dưỡng" },
+            { name: "The Amazing Race Vietnam", desc: "Show thực tế phiêu lưu nơi các cặp đôi tranh tài qua nhiều chặng tại những địa danh nổi tiếng nhất Việt Nam, vượt qua thử thách thể chất, tinh thần và kỹ năng sống để giành giải thưởng lớn." },
           ],
         },
       ],
