@@ -14,6 +14,8 @@ const BRAND_IMAGES: Record<string, string[]> = {
   "Antonio De Torres (ADT)": ["/adt-01.jpg", "/adt-02.jpg"],
   "Dominique Saint Paul": ["/dominique-01.jpg"],
   "Degrey": ["/degrey-01.jpg", "/degrey-02.jpg"],
+  "The Amazing Race Vietnam": ["/amazing-race-01.jpg", "/amazing-race-02.jpg"],
+  "Who Is Single (Người Ấy Là Ai)": ["/who-is-single-01.jpg", "/who-is-single-02.jpg"],
 };
 
 const SOCIAL_LINKS = [
