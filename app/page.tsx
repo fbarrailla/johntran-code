@@ -445,13 +445,13 @@ export default function Home() {
                           {imgs && (
                             <div className={`grid gap-0.5 ${imgs.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
                               {imgs.map((src, idx) => (
-                                <div key={src} className="relative" style={{ aspectRatio: "3/4" }}>
+                                <div key={src} className="relative h-40">
                                   <Image
                                     src={src}
                                     alt={`${item.name} collaboration ${idx + 1}`}
                                     fill
                                     sizes="(max-width: 768px) 50vw, 20vw"
-                                    className="object-cover object-top"
+                                    className="object-cover object-center"
                                     loading="lazy"
                                   />
                                 </div>
