@@ -231,7 +231,7 @@ export default function Home() {
       "font-size:16px;font-weight:bold;"
     );
     console.log(
-      "%cThis site was built with care. If you're into web craft, reach out — john@johntrancoaching.com",
+      "%cThis site was built with care. If you're into web craft, reach out — johntran-code@gmail.com",
       "color:#a1a1aa;font-size:13px;"
     );
   }, []);

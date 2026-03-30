@@ -158,7 +158,7 @@ export default function Chatbot() {
           program: "Chatbot lead",
           contact_method: "Chatbot",
           time: new Date().toLocaleDateString(),
-          to_email: "johntran@tontonfrancky.com",
+          to_email: "johntran-code@gmail.com",
         },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       );
