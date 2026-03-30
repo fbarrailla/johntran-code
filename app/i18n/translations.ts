@@ -59,6 +59,7 @@ export const t = {
           items: [
             { name: "TV Show with Chef Huy", desc: "Fitness and nutrition TV show concept in development" },
             { name: "The Amazing Race Vietnam", desc: "Adventurous reality show where pairs compete across Vietnam's most iconic landmarks, overcoming physical, mental, and life-skill challenges to race to the finish line." },
+            { name: "Who Is Single (Người Ấy Là Ai)", desc: "Reality dating show franchised from Thailand where a female lead finds her perfect match among five male contestants — Single, Taken, or LGBTQ+ — carrying a meaningful message about love and respect." },
           ],
         },
       ],
@@ -257,6 +258,7 @@ export const t = {
           items: [
             { name: "TV Show cùng Chef Huy", desc: "Concept chương trình truyền hình kết hợp fitness và dinh dưỡng" },
             { name: "The Amazing Race Vietnam", desc: "Show thực tế phiêu lưu nơi các cặp đôi tranh tài qua nhiều chặng tại những địa danh nổi tiếng nhất Việt Nam, vượt qua thử thách thể chất, tinh thần và kỹ năng sống để giành giải thưởng lớn." },
+            { name: "Người Ấy Là Ai (Who Is Single)", desc: "Show hẹn hò thực tế nhượng quyền từ Thái Lan, nơi nữ chính tìm kiếm người phù hợp trong số năm nam thí sinh — Độc thân, Đã có người, hoặc LGBTQ+ — mang thông điệp ý nghĩa về tình yêu và sự tôn trọng." },
           ],
         },
       ],
