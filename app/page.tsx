@@ -10,6 +10,12 @@ import { t } from "./i18n/translations";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
+const BRAND_IMAGES: Record<string, string[]> = {
+  "Antonio De Torres (ADT)": ["/adt-01.jpg", "/adt-02.jpg"],
+  "Dominique Saint Paul": ["/dominique-01.jpg"],
+  "Degrey": ["/degrey-01.jpg", "/degrey-02.jpg"],
+};
+
 const SOCIAL_LINKS = [
   {
     label: "Instagram",
@@ -427,12 +433,33 @@ export default function Home() {
                     {cat.title}
                   </h3>
                   <ul className="space-y-3">
-                    {cat.items.map((item) => (
-                      <li key={item.name} className="rounded-xl bg-zinc-900 border border-zinc-800 p-4 transition-all duration-200 hover:border-zinc-600">
-                        <p className="font-semibold text-zinc-100 text-sm">{item.name}</p>
-                        <p className="text-xs text-zinc-500 mt-1 leading-relaxed">{item.desc}</p>
-                      </li>
-                    ))}
+                    {cat.items.map((item) => {
+                      const imgs = BRAND_IMAGES[item.name];
+                      return (
+                        <li key={item.name} className="rounded-xl bg-zinc-900 border border-zinc-800 overflow-hidden transition-all duration-200 hover:border-zinc-600">
+                          {imgs && (
+                            <div className={`grid gap-0.5 ${imgs.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
+                              {imgs.map((src, idx) => (
+                                <div key={src} className="relative" style={{ aspectRatio: "3/4" }}>
+                                  <Image
+                                    src={src}
+                                    alt={`${item.name} collaboration ${idx + 1}`}
+                                    fill
+                                    sizes="(max-width: 768px) 50vw, 20vw"
+                                    className="object-cover object-top"
+                                    loading="lazy"
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                          <div className="p-4">
+                            <p className="font-semibold text-zinc-100 text-sm">{item.name}</p>
+                            <p className="text-xs text-zinc-500 mt-1 leading-relaxed">{item.desc}</p>
+                          </div>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               </Reveal>
