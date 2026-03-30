@@ -154,8 +154,8 @@ export default function Chatbot() {
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         "template_ircblvw",
-        { email },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+        { email, to_email: "johntran.code@gmail.com" },
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
       );
     } catch {
       // Silent fail
@@ -182,7 +182,7 @@ export default function Chatbot() {
           time: new Date().toLocaleDateString(),
           to_email: "johntran.code@gmail.com",
         },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
       );
     } catch {
       // Silent fail — user already got the thank-you message

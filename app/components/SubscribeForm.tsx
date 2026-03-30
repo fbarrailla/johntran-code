@@ -61,7 +61,7 @@ export default function SubscribeForm() {
           contact_method: form.contactMethod,
           to_email: "johntran.code@gmail.com",
         },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
       );
       setState("success");
     } catch {
