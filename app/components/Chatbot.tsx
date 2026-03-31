@@ -157,6 +157,12 @@ export default function Chatbot() {
         { email },
         { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
       );
+      await emailjs.send(
+        "service_nop1bn9",
+        "template_oj72mqh",
+        { email },
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
+      );
     } catch {
       // Silent fail
     }

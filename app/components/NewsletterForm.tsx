@@ -26,6 +26,12 @@ export default function NewsletterForm({ placeholder, submit, submitting, succes
         { email },
         { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
       );
+      await emailjs.send(
+        "service_nop1bn9",
+        "template_oj72mqh",
+        { email },
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
+      );
       setStatus("success");
       setEmail("");
     } catch {
