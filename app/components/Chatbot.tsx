@@ -160,7 +160,7 @@ export default function Chatbot() {
       await emailjs.send(
         "service_nop1bn9",
         "template_oj72mqh",
-        { email },
+        { email, userName: "John Tran" },
         { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
       );
     } catch {
