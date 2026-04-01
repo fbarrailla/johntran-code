@@ -5,6 +5,7 @@ import Link from "next/link";
 
 // ── Change this to your desired secret code (case-insensitive) ──
 const SECRET_CODE = "JOHNTRAN";
+const PAYPAL_URL = "https://www.paypal.com/ncp/payment/NKZKYJJBB5AGG";
 
 // ── Ebook downloads list ──
 const EBOOKS = [
@@ -39,6 +40,7 @@ export default function TelechargerPage() {
   const [unlocked, setUnlocked] = useState(false);
   const [shake, setShake] = useState(false);
   const [justUnlocked, setJustUnlocked] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const triggerShake = useCallback(() => {
@@ -88,10 +90,46 @@ export default function TelechargerPage() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible" && sessionStorage.getItem("paypal_pending")) {
+        sessionStorage.removeItem("paypal_pending");
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 6000);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
+
+  const handleDownloadClick = () => {
+    sessionStorage.setItem("paypal_pending", "1");
+    window.open(PAYPAL_URL, "_blank", "noopener,noreferrer");
+  };
+
   const progress = Math.round((typed.length / SECRET_CODE.length) * 100);
 
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col items-center justify-center px-6 py-20 relative overflow-hidden">
+      {/* ── Success notification ── */}
+      <div
+        className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3 rounded-2xl shadow-xl transition-all duration-500 ${
+          showSuccess ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+        }`}
+        style={{
+          background: "rgb(var(--glow-rgb) / 0.12)",
+          border: "1px solid rgb(var(--glow-rgb) / 0.3)",
+          backdropFilter: "blur(12px)",
+        }}
+      >
+        <svg className="w-5 h-5 shrink-0" style={{ color: "var(--p-400)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p className="text-sm font-medium text-zinc-100">
+          Paiement reçu — un email vous a été envoyé.
+        </p>
+      </div>
+
       {/* Ambient glow */}
       <div
         className="pointer-events-none fixed inset-0"
@@ -261,11 +299,11 @@ export default function TelechargerPage() {
           {/* Ebooks grid */}
           <div className="w-full grid gap-4">
             {EBOOKS.map((book) => (
-              <a
+              <button
                 key={book.id}
-                href={book.href}
-                download
-                className="group flex items-center gap-5 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.015]"
+                type="button"
+                onClick={handleDownloadClick}
+                className="group flex items-center gap-5 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.015] w-full text-left"
                 style={{
                   background: "rgb(var(--glow-rgb) / 0.04)",
                   border: "1px solid rgb(var(--glow-rgb) / 0.12)",
@@ -342,7 +380,7 @@ export default function TelechargerPage() {
                     />
                   </svg>
                 </div>
-              </a>
+              </button>
             ))}
           </div>
 
