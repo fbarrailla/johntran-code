@@ -5,7 +5,6 @@ import Link from "next/link";
 
 // ── Change this to your desired secret code (case-insensitive) ──
 const SECRET_CODE = "JOHNTRAN";
-const PAYPAL_URL = "https://www.paypal.com/ncp/payment/NKZKYJJBB5AGG";
 
 // ── Ebook downloads list ──
 const EBOOKS = [
@@ -91,20 +90,20 @@ export default function TelechargerPage() {
   }, []);
 
   useEffect(() => {
-    const handleVisibility = () => {
+    const onVisibility = () => {
       if (document.visibilityState === "visible" && sessionStorage.getItem("paypal_pending")) {
         sessionStorage.removeItem("paypal_pending");
         setShowSuccess(true);
         setTimeout(() => setShowSuccess(false), 6000);
       }
     };
-    document.addEventListener("visibilitychange", handleVisibility);
-    return () => document.removeEventListener("visibilitychange", handleVisibility);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
-  const handleDownloadClick = () => {
+  const openPaypal = () => {
     sessionStorage.setItem("paypal_pending", "1");
-    window.open(PAYPAL_URL, "_blank", "noopener,noreferrer");
+    window.open("https://www.paypal.com/ncp/payment/NKZKYJJBB5AGG", "_blank", "noopener,noreferrer");
   };
 
   const progress = Math.round((typed.length / SECRET_CODE.length) * 100);
@@ -125,7 +124,7 @@ export default function TelechargerPage() {
         <svg className="w-5 h-5 shrink-0" style={{ color: "var(--p-400)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <p className="text-sm font-medium text-zinc-100">
+        <p className="text-sm font-medium text-zinc-100 whitespace-nowrap">
           Paiement reçu — un email vous a été envoyé.
         </p>
       </div>
@@ -252,6 +251,25 @@ export default function TelechargerPage() {
           >
             Tu as reçu le code dans le programme de John.
           </p>
+
+          {/* CTA PayPal — visible only while typing */}
+          {(
+            <button
+              type="button"
+              onClick={openPaypal}
+              className="flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-95"
+              style={{
+                background: "rgb(var(--glow-rgb) / 0.1)",
+                border: "1px solid rgb(var(--glow-rgb) / 0.3)",
+                color: "var(--p-400)",
+              }}
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+              </svg>
+              Récupérer le code
+            </button>
+          )}
         </div>
       )}
 
@@ -299,11 +317,11 @@ export default function TelechargerPage() {
           {/* Ebooks grid */}
           <div className="w-full grid gap-4">
             {EBOOKS.map((book) => (
-              <button
+              <a
                 key={book.id}
-                type="button"
-                onClick={handleDownloadClick}
-                className="group flex items-center gap-5 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.015] w-full text-left"
+                href={book.href}
+                download
+                className="group flex items-center gap-5 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.015]"
                 style={{
                   background: "rgb(var(--glow-rgb) / 0.04)",
                   border: "1px solid rgb(var(--glow-rgb) / 0.12)",
@@ -380,7 +398,7 @@ export default function TelechargerPage() {
                     />
                   </svg>
                 </div>
-              </button>
+              </a>
             ))}
           </div>
 
