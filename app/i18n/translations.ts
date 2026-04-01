@@ -151,6 +151,17 @@ export const t = {
       successMsg: "You're subscribed! Talk soon.",
       errorMsg: "Something went wrong — please try again.",
     },
+    downloads: {
+      eyebrow: "Free resources",
+      heading: "Exclusive downloads.",
+      sub: "Members of John's program get access to premium ebooks on mindset, lifestyle, and performance.",
+      cta: "Access the downloads",
+      items: [
+        { title: "Design Your Life Blueprint", pages: "87 pages" },
+        { title: "The Quiet Luxury Mindset", pages: "64 pages" },
+        { title: "Peak Performance Protocol", pages: "112 pages" },
+      ],
+    },
     apply: {
       eyebrow: "Apply",
       heading: "Ready to start?",
@@ -358,6 +369,17 @@ export const t = {
       submitting: "Đang gửi…",
       successMsg: "Đăng ký thành công! Hẹn gặp sớm.",
       errorMsg: "Có lỗi xảy ra — vui lòng thử lại.",
+    },
+    downloads: {
+      eyebrow: "Tài nguyên miễn phí",
+      heading: "Tài liệu độc quyền.",
+      sub: "Các thành viên chương trình của John được truy cập các ebook cao cấp về tư duy, lối sống và hiệu suất.",
+      cta: "Truy cập tài liệu",
+      items: [
+        { title: "Bản thiết kế cuộc sống", pages: "87 trang" },
+        { title: "Tư duy Quiet Luxury", pages: "64 trang" },
+        { title: "Giao thức hiệu suất đỉnh cao", pages: "112 trang" },
+      ],
     },
     apply: {
       eyebrow: "Đăng ký",

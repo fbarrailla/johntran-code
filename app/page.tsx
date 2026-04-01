@@ -610,6 +610,66 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ── Downloads teaser ── */}
+        <section className="mx-auto max-w-5xl px-6 py-24">
+          <Reveal className="text-center mb-12">
+            <p className="text-sm font-semibold uppercase tracking-widest text-primary-400 mb-2">
+              {tr.downloads.eyebrow}
+            </p>
+            <h2 className="text-3xl font-bold text-zinc-100 mb-3">
+              {tr.downloads.heading}
+            </h2>
+            <p className="text-zinc-400 max-w-xl mx-auto">{tr.downloads.sub}</p>
+          </Reveal>
+
+          <div className="grid sm:grid-cols-3 gap-4 mb-10">
+            {tr.downloads.items.map((item, i) => (
+              <Reveal key={i} delay={i * 80}>
+                <div
+                  className="flex items-center gap-4 p-5 rounded-2xl"
+                  style={{
+                    background: "rgb(var(--glow-rgb) / 0.04)",
+                    border: "1px solid rgb(var(--glow-rgb) / 0.12)",
+                  }}
+                >
+                  <div
+                    className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
+                    style={{
+                      background: "rgb(var(--glow-rgb) / 0.08)",
+                      border: "1px solid rgb(var(--glow-rgb) / 0.15)",
+                    }}
+                  >
+                    <svg className="w-5 h-5" style={{ color: "var(--p-400)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                    </svg>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-semibold text-zinc-100 text-sm truncate">{item.title}</p>
+                    <p className="text-xs text-zinc-500 mt-0.5">PDF · {item.pages}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="flex justify-center">
+            <a
+              href="/telecharger"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-95"
+              style={{
+                background: "rgb(var(--glow-rgb) / 0.1)",
+                border: "1px solid rgb(var(--glow-rgb) / 0.25)",
+                color: "var(--p-400)",
+              }}
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              </svg>
+              {tr.downloads.cta}
+            </a>
+          </Reveal>
+        </section>
+
         {/* ── Application form ── */}
         <section id="apply" className="mx-auto max-w-2xl px-6 py-24 scroll-mt-16">
           <div className="text-center mb-10">
