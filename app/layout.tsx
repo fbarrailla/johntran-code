@@ -55,7 +55,11 @@ export default function RootLayout({
       className={`${beVietnamPro.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-zinc-950 text-zinc-100">
-        <ThemeProvider><LanguageProvider>{children}</LanguageProvider></ThemeProvider>
+        <ThemeProvider><LanguageProvider>
+          <div className="min-h-screen flex items-center justify-center">
+            <p className="text-zinc-400 text-lg">Maintenance in progress. Come back later.</p>
+          </div>
+        </LanguageProvider></ThemeProvider>
         {GA_ID && (
           <>
             <Script
