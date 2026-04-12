@@ -3,8 +3,29 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 
-// ── Change this to your desired secret code (case-insensitive) ──
-const SECRET_CODE = "JOHNTRAN";
+// SHA-256 hashes of each prefix of the secret code (all uppercase).
+// The plaintext is never stored — only these hashes ship in the bundle.
+const CODE_LENGTH = 8;
+const CODE_PREFIX_HASHES = [
+  "6da43b944e494e885e69af021f93c6d9331c78aa228084711429160a5bbd15b5",
+  "80ade79ae79c576675cf28b4c0254238059661a67c8a3585aa7e2562b8ec4cdc",
+  "83f6612376490a64d81ab316ff46332310f74efc321dd11b4789b11b52be7c61",
+  "4ead13b3b5c9e15bd3f1172f3a0cb83f68d9b7dab1bd2d5895c7f395bc4c840c",
+  "6edd3611f66d753107391889d3dec102d5600b814a4a178dd709acd22daeaefb",
+  "f38294b41a46830bbc8d64393ebe203a59b3d821a641223414e20c8fdf2243e5",
+  "6f18e9e0e81a54240a8b3b1940ece327c95af0dc99fd0efa13668dbb156f0330",
+  "6bf4f6ef253aae4e388ae1a5becb108bff29ba4fd608eedfe6568cccfdc17c9d",
+];
+
+async function sha256hex(text: string): Promise<string> {
+  const buf = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(text)
+  );
+  return Array.from(new Uint8Array(buf))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
 
 // ── Ebook downloads list ──
 const EBOOKS = [
@@ -54,26 +75,34 @@ export default function TelechargerPage() {
       if (e.key.length !== 1) return;
 
       const next = (typed + e.key).toUpperCase();
-      const target = SECRET_CODE.toUpperCase();
 
       // Reset any pending idle timer
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
-      if (target.startsWith(next)) {
-        setTyped(next);
-        if (next === target) {
-          setUnlocked(true);
-          setJustUnlocked(true);
-          setTimeout(() => setJustUnlocked(false), 1200);
-        } else {
-          // Auto-reset after 3 s of inactivity
-          timeoutRef.current = setTimeout(() => setTyped(""), 3000);
-        }
-      } else {
-        // Wrong key — reset
+      // Reject immediately if longer than the code
+      if (next.length > CODE_LENGTH) {
         triggerShake();
         setTyped("");
+        return;
       }
+
+      sha256hex(next).then((hash) => {
+        if (hash === CODE_PREFIX_HASHES[next.length - 1]) {
+          setTyped(next);
+          if (next.length === CODE_LENGTH) {
+            setUnlocked(true);
+            setJustUnlocked(true);
+            setTimeout(() => setJustUnlocked(false), 1200);
+          } else {
+            // Auto-reset after 3 s of inactivity
+            timeoutRef.current = setTimeout(() => setTyped(""), 3000);
+          }
+        } else {
+          // Wrong key — reset
+          triggerShake();
+          setTyped("");
+        }
+      });
     },
     [typed, unlocked, triggerShake]
   );
@@ -106,7 +135,7 @@ export default function TelechargerPage() {
     window.open("https://www.paypal.com/ncp/payment/NKZKYJJBB5AGG", "_blank", "noopener,noreferrer");
   };
 
-  const progress = Math.round((typed.length / SECRET_CODE.length) * 100);
+  const progress = Math.round((typed.length / CODE_LENGTH) * 100);
 
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col items-center justify-center px-6 py-20 relative overflow-hidden">
@@ -206,7 +235,7 @@ export default function TelechargerPage() {
 
           {/* Progress dots */}
           <div className="flex items-center gap-3">
-            {Array.from({ length: SECRET_CODE.length }).map((_, i) => (
+            {Array.from({ length: CODE_LENGTH }).map((_, i) => (
               <div
                 key={i}
                 className="w-3 h-3 rounded-full transition-all duration-200"

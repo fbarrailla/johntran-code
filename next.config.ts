@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  assetPrefix: '/',
+  output: 'export',
+  basePath: '/johntran-code',
+  assetPrefix: '/johntran-code/',
 };
 
 export default nextConfig;
