@@ -23,7 +23,12 @@ export default function TelechargerPage() {
         Retour
       </Link>
 
-      <p className="text-zinc-400 text-lg">
+      <p className="text-zinc-400 text-lg" style={
+        {
+          fontFamily: 'Helvetica, sans-serif',
+          fontSize: 45
+        }
+      }>
         Maintenance in progress. Come back later.
       </p>
     </main>
