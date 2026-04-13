@@ -57,7 +57,12 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-zinc-950 text-zinc-100">
         <ThemeProvider><LanguageProvider>
           <div className="min-h-screen flex items-center justify-center">
-            <p className="text-zinc-400 text-lg">Maintenance in progress. Come back later.</p>
+            <p className="text-zinc-400 text-lg" style={
+        {
+          fontFamily: 'Helvetica, sans-serif',
+          fontSize: 45
+        }
+      }>Maintenance in progress. Come back later.</p>
           </div>
         </LanguageProvider></ThemeProvider>
         {GA_ID && (
