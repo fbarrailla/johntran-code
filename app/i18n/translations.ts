@@ -154,12 +154,10 @@ export const t = {
     downloads: {
       eyebrow: "Free resources",
       heading: "Exclusive downloads.",
-      sub: "Members of John's program get access to premium ebooks on mindset, lifestyle, and performance.",
+      sub: "Members of John's program get access to the exclusive John Tran Code ebook.",
       cta: "Access the downloads",
       items: [
-        { title: "Design Your Life Blueprint", pages: "87 pages" },
-        { title: "The Quiet Luxury Mindset", pages: "64 pages" },
-        { title: "Peak Performance Protocol", pages: "112 pages" },
+        { title: "John Tran Code", pages: "PDF" },
       ],
     },
     apply: {
@@ -373,12 +371,10 @@ export const t = {
     downloads: {
       eyebrow: "Tài nguyên miễn phí",
       heading: "Tài liệu độc quyền.",
-      sub: "Các thành viên chương trình của John được truy cập các ebook cao cấp về tư duy, lối sống và hiệu suất.",
+      sub: "Thành viên chương trình của John được truy cập ebook độc quyền John Tran Code.",
       cta: "Truy cập tài liệu",
       items: [
-        { title: "Bản thiết kế cuộc sống", pages: "87 trang" },
-        { title: "Tư duy Quiet Luxury", pages: "64 trang" },
-        { title: "Giao thức hiệu suất đỉnh cao", pages: "112 trang" },
+        { title: "John Tran Code", pages: "PDF" },
       ],
     },
     apply: {

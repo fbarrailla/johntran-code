@@ -622,34 +622,32 @@ export default function Home() {
             <p className="text-zinc-400 max-w-xl mx-auto">{tr.downloads.sub}</p>
           </Reveal>
 
-          <div className="grid sm:grid-cols-3 gap-4 mb-10">
-            {tr.downloads.items.map((item, i) => (
-              <Reveal key={i} delay={i * 80}>
+          <div className="flex justify-center mb-10">
+            <Reveal>
+              <div
+                className="flex items-center gap-4 p-5 rounded-2xl max-w-sm w-full"
+                style={{
+                  background: "rgb(var(--glow-rgb) / 0.04)",
+                  border: "1px solid rgb(var(--glow-rgb) / 0.12)",
+                }}
+              >
                 <div
-                  className="flex items-center gap-4 p-5 rounded-2xl"
+                  className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
                   style={{
-                    background: "rgb(var(--glow-rgb) / 0.04)",
-                    border: "1px solid rgb(var(--glow-rgb) / 0.12)",
+                    background: "rgb(var(--glow-rgb) / 0.08)",
+                    border: "1px solid rgb(var(--glow-rgb) / 0.15)",
                   }}
                 >
-                  <div
-                    className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{
-                      background: "rgb(var(--glow-rgb) / 0.08)",
-                      border: "1px solid rgb(var(--glow-rgb) / 0.15)",
-                    }}
-                  >
-                    <svg className="w-5 h-5" style={{ color: "var(--p-400)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                    </svg>
-                  </div>
-                  <div className="min-w-0">
-                    <p className="font-semibold text-zinc-100 text-sm truncate">{item.title}</p>
-                    <p className="text-xs text-zinc-500 mt-0.5">PDF · {item.pages}</p>
-                  </div>
+                  <svg className="w-5 h-5" style={{ color: "var(--p-400)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                  </svg>
                 </div>
-              </Reveal>
-            ))}
+                <div className="min-w-0">
+                  <p className="font-semibold text-zinc-100 text-sm">John Tran Code</p>
+                  <p className="text-xs text-zinc-500 mt-0.5">PDF · FR / VI</p>
+                </div>
+              </div>
+            </Reveal>
           </div>
 
           <Reveal className="flex justify-center">
