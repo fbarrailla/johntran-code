@@ -31,27 +31,19 @@ async function sha256hex(text: string): Promise<string> {
 const EBOOKS = [
   {
     id: 1,
-    title: "Design Your Life Blueprint",
-    subtitle: "The complete guide to building sustainable habits",
-    pages: "87 pages",
+    title: "John Tran Code",
+    subtitle: "Version française",
+    lang: "FR",
     format: "PDF",
-    href: "/ebooks/design-your-life-blueprint.pdf",
+    href: "/John-Tran-Code.pdf",
   },
   {
     id: 2,
-    title: "The Quiet Luxury Mindset",
-    subtitle: "Confidence, style & the art of effortless presence",
-    pages: "64 pages",
+    title: "John Tran Code",
+    subtitle: "Phiên bản tiếng Việt",
+    lang: "VI",
     format: "PDF",
-    href: "/ebooks/quiet-luxury-mindset.pdf",
-  },
-  {
-    id: 3,
-    title: "Peak Performance Protocol",
-    subtitle: "John's personal health & performance system",
-    pages: "112 pages",
-    format: "PDF",
-    href: "/ebooks/peak-performance-protocol.pdf",
+    href: "/John-Tran-Code_translated.pdf",
   },
 ];
 
@@ -404,7 +396,7 @@ export default function TelechargerPage() {
                     {book.subtitle}
                   </p>
                   <p className="text-xs text-zinc-600 mt-1">
-                    {book.format} · {book.pages}
+                    {book.format} · {book.lang}
                   </p>
                 </div>
 
